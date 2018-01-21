@@ -1,0 +1,2 @@
+class SystemAccessRequestSoftware < ApplicationRecord
+end

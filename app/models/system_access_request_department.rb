@@ -1,0 +1,2 @@
+class SystemAccessRequestDepartment < ApplicationRecord
+end

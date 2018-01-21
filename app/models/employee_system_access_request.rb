@@ -1,0 +1,2 @@
+class EmployeeSystemAccessRequest < ApplicationRecord
+end
