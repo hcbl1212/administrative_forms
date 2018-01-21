@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  username: rxightuser
+  password: password
+  host: 127.0.0.1
+  port: 3306
+development:
+  <<: *default
+  database: administrative_forms_dev
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database:  administrative_forms_test
+
+production:
+  <<: *default
+  database: administrative_forms
