@@ -1,10 +1,10 @@
-<%= form_with(model: employee, local: true) do |form| %>
+<%= form_with(model: employee, local: true) do | form | %>
   <% if employee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
 
       <ul>
-      <% employee.errors.full_messages.each do |message| %>
+      <% employee.errors.full_messages.each do | message | %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -40,6 +40,19 @@
     <%= form.label :employee_email %>
     <%= form.text_field :employee_email, id: :employee_employee_email %>
   </div>
+
+  <%= form.fields_for :system_access_request do | sar_form | %>
+      <div class="system-access-requests">
+          <div class="field">
+            <%= sar_form.label :privileged_access %>
+            <%= sar_form.text_field :privileged_access, id: :privileged_access %>
+          </div>
+          <div class="field">
+            <%= sar_form.label :privileged_access %>
+            <%= sar_form.text_field :privileged_access, id: :privileged_access %>
+          </div>
+      </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

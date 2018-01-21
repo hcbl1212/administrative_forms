@@ -15,6 +15,8 @@ class EmployeesController < ApplicationController
   # GET /employees/new
   def new
     @employee = Employee.new
+    @system_access_request = @employee.system_access_requests.build
+    @signature = @system_access_request.signatures.build
   end
 
   # GET /employees/1/edit
@@ -69,6 +71,15 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:employee, :first_name, :last_name, :middle_initial, :job_title, :employee_email)
+        params.require(:employee).permit(
+            :employee, :first_name, :last_name, :middle_initial, :job_title, :employee_email,
+            system_request_attributes: [
+                                        :id, :effective_date, :reason, :privileged_access, :business_justification,
+                                        :special_instructions, :other_access, :sales_rep_email,
+                                        singature_attributes: [
+                                            :id, :signature_type, :signature, :date
+                                        ]
+                                    ]
+      )
     end
 end

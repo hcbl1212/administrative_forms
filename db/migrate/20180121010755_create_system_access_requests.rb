@@ -2,6 +2,7 @@ class CreateSystemAccessRequests < ActiveRecord::Migration[5.1]
   def change
     create_table :system_access_requests do |t|
       t.datetime :effective_date
+      t.integer :employee_id
       t.string :reason
       t.string :privileged_access
       t.string :business_justification
