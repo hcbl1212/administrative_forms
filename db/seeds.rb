@@ -30,12 +30,12 @@
         'Billing (Telcor)', 'Clearinghouse (Zirmed)', 'LIS (LabHealth)'
     ].each do | software |
         new_software = Software.create!({ name: software})
-        if software =~ /Billing (Telcor)/
-            ['Admin', 'Billilng Manager', 'Financials', 'Payer AR', 'Team Lead'].each do | role |
+        if software =~ /^Billing/
+            ['Admin', 'Billing Manager', 'Financials', 'Payer AR', 'Team Lead'].each do | role |
                 new_role = Role.find_by_name(role)
                 SoftwareRole.create!({ software_id: new_software.id, role_id: new_role.id})
             end
-        elsif software  =~ /Clearinghouse (Zirmed)/
+        elsif software  =~ /^Clearinghouse/
             ['Admin', 'Claims', 'Eligibility', 'Remits'].each do | role |
                 new_role = Role.find_by_name(role)
                 SoftwareRole.create!({ software_id: new_software.id, role_id: new_role.id})

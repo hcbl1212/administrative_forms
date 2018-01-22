@@ -2,11 +2,10 @@
   <% if employee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
-
       <ul>
-      <% employee.errors.full_messages.each do | message | %>
-        <li><%= message %></li>
-      <% end %>
+          <% employee.errors.full_messages.each do | message | %>
+            <li><%= message %></li>
+          <% end %>
       </ul>
     </div>
   <% end %>
@@ -43,13 +42,59 @@
 
   <%= form.fields_for :system_access_request do | sar_form | %>
       <div class="system-access-requests">
-          <div class="field">
-            <%= sar_form.label :privileged_access %>
-            <%= sar_form.text_field :privileged_access, id: :privileged_access %>
+          <div class="effective_date">
+              <div class="field">
+                <%= sar_form.label :effective_date %>
+                <%= sar_form.date_select :effective_date %>
+              </div>
           </div>
-          <div class="field">
-            <%= sar_form.label :privileged_access %>
-            <%= sar_form.text_field :privileged_access, id: :privileged_access %>
+          <div class="job-title">
+              <div class="field">
+                <%= sar_form.label :job_title %>
+                <%= sar_form.text_field :job_title, id: :job_title %>
+              </div>
+          </div>
+          <div class="departments">
+            <h1>Departments</h1>
+            <%= sar_form.fields_for :department do | depart_form | %>
+                <% depart_form.collection_check_boxes(:department_ids, Department.all, :id, :name) do | department | %>
+                    <%= department.label { department.check_box + department.text } %>
+                    <% if department.text.match?(/Other/) %>
+                        <%= depart_form.text_field :other_text, id: :other_text %>
+                    <% end %>
+                <% end %>
+            <% end %>
+          </div>
+          <div class="reasons">
+            <h1>Choose One</h1>
+            <% SystemAccessRequest::REASONS.each do | reason | %>
+                <%= sar_form.label(:reason, value: reason) do %>
+                    <%= sar_form.radio_button(:reason, reason) %>
+                    <%= "This is a <span style='text-decoration:underline;'>#{reason}</span> user.".html_safe %>
+                <% end %>
+            <% end %>
+          </div>
+          <div class="system-request-fields">
+            <h1>System Access Request</h1>
+            <%= sar_form.fields_for :system_access_fields do | saf_form | %>
+                <% saf_form.collection_check_boxes(:system_access_field_ids, SystemAccessField.all, :id, :name) do | saf | %>
+                    <%= saf.label { saf.check_box + saf.text } %>
+                    <% if saf.text.match?(/^Sales/) %>
+                        <%= saf_form.text_field :sales_rep_email, id: :sales_rep_email %>
+                    <% end %>
+                <% end %>
+            <% end %>
+            <%= sar_form.fields_for :software do | software_form | %>
+                <% software_form.collection_check_boxes(:software_ids, Software.all, :id, :name) do | software | %>
+                    <%= software.label { software.check_box + software.text + ' Role:'} %>
+                    <%= sar_form.fields_for :role do | role_form | %>
+                        <% software_object = Software.find_by_name(software.text)%>
+                        <%= role_form.collection_radio_buttons(:role_ids, Software.find_by_name(software.text).roles, :id, :name) do | role | %>
+                            <%= role.label { role.radio_button + role.text } %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
           </div>
       </div>
   <% end %>
