@@ -7,6 +7,9 @@ class SystemAccessRequest < ApplicationRecord
     has_many :signatures
     has_many :system_access_request_system_access_fields
     has_many :system_access_fields, through: :system_access_request_system_access_fields
+    accepts_nested_attributes_for :departments
+    accepts_nested_attributes_for :groups
+    accepts_nested_attributes_for :system_access_fields
     accepts_nested_attributes_for :signatures
 
     REASONS = ['new', 'change', 'termination'].freeze.map(&:freeze)

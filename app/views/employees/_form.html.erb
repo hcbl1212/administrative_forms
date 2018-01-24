@@ -40,7 +40,7 @@
     <%= form.text_field :employee_email, id: :employee_employee_email %>
   </div>
 
-  <%= form.fields_for :system_access_request do | sar_form | %>
+  <%= form.fields_for :system_access_requests do | sar_form | %>
       <div class="system-access-requests">
           <div class="effective_date">
               <div class="field">
@@ -48,15 +48,9 @@
                 <%= sar_form.date_select :effective_date %>
               </div>
           </div>
-          <div class="job-title">
-              <div class="field">
-                <%= sar_form.label :job_title %>
-                <%= sar_form.text_field :job_title, id: :job_title %>
-              </div>
-          </div>
           <div class="departments">
             <h1>Departments</h1>
-            <%= sar_form.fields_for :department do | depart_form | %>
+            <%= sar_form.fields_for :departments do | depart_form | %>
                 <% depart_form.collection_check_boxes(:department_ids, Department.all, :id, :name) do | department | %>
                     <%= department.label { department.check_box + department.text } %>
                     <% if department.text.match?(/Other/) %>
@@ -88,13 +82,68 @@
                 <% software_form.collection_check_boxes(:software_ids, Software.all, :id, :name) do | software | %>
                     <%= software.label { software.check_box + software.text + ' Role:'} %>
                     <%= sar_form.fields_for :role do | role_form | %>
-                        <% software_object = Software.find_by_name(software.text)%>
                         <%= role_form.collection_radio_buttons(:role_ids, Software.find_by_name(software.text).roles, :id, :name) do | role | %>
                             <%= role.label { role.radio_button + role.text } %>
                         <% end %>
                     <% end %>
                 <% end %>
             <% end %>
+            <div class="groups">
+                <%= sar_form.fields_for :group do | group_form | %>
+                    <%= group_form.label(nil, "Email Groups:") %>
+                    <%= group_form.collection_check_boxes(:group_ids, Group.email, :id, :name) do | email_group | %>
+                        <%= email_group.label { email_group.check_box + email_group.text } %>
+                    <% end %>
+                    <%= group_form.label(nil, "Network Share Security: Security Groups:") %>
+                    <%= group_form.collection_check_boxes(:group_ids, Group.network_security_share, :id, :name) do | network_group | %>
+                        <%= network_group.label { network_group.check_box + network_group.text } %>
+                    <% end %>
+                <% end %>
+            </div>
+            <div class="privileged-access">
+                <div class="field">
+                    <%= sar_form.label :privileged_access %>
+                    <%= sar_form.text_field :privileged_access, id: :privileged_access %>
+                </div>
+                <div class="field">
+                    <%= sar_form.label :business_justification %>
+                    <%= sar_form.text_field :business_justification, id: :business_justification %>
+                </div>
+            </div>
+            <div class="other-access">
+                <div class="field">
+                    <%= sar_form.label :other_access %>
+                    <%= sar_form.text_field :other_access, id: :other_access %>
+                </div>
+            </div>
+            <div class="special-instructions">
+                <div class="field">
+                    <%= sar_form.label :special_instructions %>
+                    <%= sar_form.text_field :special_instructions, id: :special_instructions %>
+                </div>
+            </div>
+            <div class="signatures">
+                <%= sar_form.fields_for :signature do | signature_form | %>
+                    <div class="field">
+                        <%= signature_form.label :signature_manager_supervisor, "Supervisor/Manager’s Signature:" %>
+                        <%= signature_form.text_field :signature, id: :signature_manager_supervisor %>
+                        <%= signature_form.date_select :date, id: :signature_manager_supervisor_date %>
+                        <%= signature_form.hidden_field :signature_type, id: :signature_manager_supervisor_type, value: "supervisor_manager" %>
+                    </div>
+                     <div class="field">
+                        <%= signature_form.label :signature_it_security, "IT Security Signature (for privileged access):" %>
+                        <%= signature_form.text_field :signature, id: :signature_it_security %>
+                        <%= signature_form.date_select :date, id: :signature_it_security_date %>
+                        <%= signature_form.hidden_field :signature_type, id: :signature_it_security_type, value: "it_security" %>
+                    </div>
+                     <div class="field">
+                        <%= signature_form.label :signature_it_dept_sign_off, "IT Dept Sign Off when complete:"%>
+                        <%= signature_form.text_field :signature, id: :signature_it_dept_sign_off %>
+                        <%= signature_form.date_select :date, id: :signature_it_dept_sign_off_date %>
+                        <%= signature_form.hidden_field :signature_type, id: :signature_it_dept_sign_off_type, value: "it_dept_sign_off" %>
+                    </div>
+                <% end %>
+            </div>
           </div>
       </div>
   <% end %>

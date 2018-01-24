@@ -28,6 +28,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
 
+    raise 'here'
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
@@ -73,13 +74,22 @@ class EmployeesController < ApplicationController
     def employee_params
         params.require(:employee).permit(
             :employee, :first_name, :last_name, :middle_initial, :job_title, :employee_email,
-            system_request_attributes: [
-                                        :id, :effective_date, :reason, :privileged_access, :business_justification,
+            {system_access_requests_attributes: [
+                                        :effective_date, :reason, :privileged_access, :business_justification,
                                         :special_instructions, :other_access, :sales_rep_email,
+                                        {system_access_fiels: [
+                                        
+                                        ]},
+                                        {departments_attributes: [
+                                            :department_ids, 
+                                            :other_text
+                                            ]
+                                        },
                                         singature_attributes: [
                                             :id, :signature_type, :signature, :date
                                         ]
                                     ]
+            }
       )
     end
 end

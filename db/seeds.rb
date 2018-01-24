@@ -22,8 +22,12 @@
         SystemAccessField.create!({ name: system_access_field})
     end
 
-    ['Supplies', 'Customer Support', 'IT-Reno', 'System Administration'].each do | group |
-        Group.create!({ name: group })
+    ['Lab', 'Manager', 'Accessioning', 'IT'].each do | group |
+        Group.create!({ name: group, group_type: 'network_security_share' })
+    end
+
+    ['Supplies', 'Customer Support', 'IT-Reno', 'Sales Rep', 'Everyone', 'Lab', 'Reporting'].each do | group |
+        Group.create!({ name: group, group_type: 'email' })
     end
 
     [

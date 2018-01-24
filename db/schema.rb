@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180122012535) do
 
   create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
+    t.integer "group_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
