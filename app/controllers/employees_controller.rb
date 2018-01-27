@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+    include ParamMassageUtilities
     before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
     # GET /employees
@@ -34,15 +35,31 @@ class EmployeesController < ApplicationController
         @employee.middle_initial = employee_params[:middle_initial]
         @employee.first_name = employee_params[:last_name]
         @employee.job_title = employee_params[:job_title]
-        @system_access_requests_params = employee_params[:system_access_requests_attributes]
-        @system_access_request = SystemAccessRequest.new
-        @system_access_request.effective_date =  @system_access_requests_params[:effective_date]
-        @system_access_request.privileged_access =  @system_access_requests_params[:privileged_access]
-        @system_access_request.business_justification =  @system_access_requests_params[:business_justification]
-        @system_access_request.special_instructions =  @system_access_requests_params[:special_instructions]
-        @system_access_request.other_access =  @system_access_requests_params[:other_access]
-        @softwares_params = @system_access_requests_params[:softwares]
-
+        #populate system access requests
+        system_access_requests_params = employee_params[:system_access_requests_attributes]["0"]
+        system_access_request = SystemAccessRequest.new
+        system_access_request.effective_date =  format_date(system_access_requests_params, "effective_date")
+        system_access_request.privileged_access = system_access_requests_params[:privileged_access]
+        system_access_request.business_justification = system_access_requests_params[:business_justification]
+        system_access_request.special_instructions = system_access_requests_params[:special_instructions]
+        system_access_request.other_access = system_access_requests_params[:other_access]
+        system_access_request.sales_rep_email = system_access_requests_params[:sales_rep_email]
+        @employee.system_access_requests << system_access_request
+        raise system_access_requests_params.inspect
+        0.upto(2).each do | index |
+            signature = system_access_requests_params[:signatures_attributes][index.to_s]
+            system_access_request.signatures << Signature.create({
+                                                signature: signature[:signature],
+                                                date: format_date(signature, "date"),
+                                                signature_type: signature[:signature_type]
+            })
+        end
+        #populate all of the softwares and their roles
+        number_of_softwares = (Software.all.count)
+        1.upto(number_of_softwares).each do | index |
+            softwares_params << system_access_requests_params[:softwares][index.to_s]
+        end
+        raise softwares_params.inspect
 
 
 
@@ -101,6 +118,7 @@ class EmployeesController < ApplicationController
                                         :special_instructions, :other_access, :sales_rep_email,
                                         {system_access_field_ids: []},
                                         {department_ids: []},
+                                        {group_ids: []},
                                         softwares: [:id, roles: [:role_ids]],
                                         signatures_attributes: [
                                             :signature_type, :signature, :date

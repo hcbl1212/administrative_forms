@@ -51,7 +51,7 @@
           </div>
           <div class="departments">
             <h1>Departments</h1>
-            <%= collection_check_boxes(:system_access_request, :department_ids, Department.all, :id, :name) do | department | %>
+            <%= sar_form.collection_check_boxes(:department_ids, Department.all, :id, :name) do | department | %>
                 <%= department.label { department.check_box + department.text } %>
             <% end %>
           </div>
@@ -66,14 +66,15 @@
           </div>
           <div class="system-request-fields">
             <h1>System Access Request</h1>
-                <%= collection_check_boxes(:system_access_request, :system_access_field_ids, SystemAccessField.all, :id, :name) do | saf | %>
+                <%= sar_form.collection_check_boxes(:system_access_field_ids, SystemAccessField.all, :id, :name) do | saf | %>
                     <%= saf.label { saf.check_box + saf.text } %>
                 <% end %>
 
                 <% for software in Software.all.includes(:roles) %>
                     <%= sar_form.fields_for 'softwares[]', software do | software_form | %>
                         <%= software_form.label(:id) do %>
-                            <%= software_form.check_box(:id) %>
+                            <%= software_form.check_box(:id, checked: false) %>
+                            <%= software_form.hidden_field(:id) %>
                             <%= software.name %>
                             <%= software_form.fields_for :roles do | role_form | %>
                                 <%= role_form.collection_radio_buttons(:role_ids, software.roles, :id, :name) do | role | %>
@@ -85,11 +86,11 @@
                 <% end %>
             <div class="groups">
                     <%= sar_form.label(nil, "Email Groups:") %>
-                    <%= collection_check_boxes(:system_access_request, :group_ids, Group.email, :id, :name) do | email_group | %>
+                    <%= sar_form.collection_check_boxes(:group_ids, Group.email, :id, :name) do | email_group | %>
                         <%= email_group.label { email_group.check_box + email_group.text } %>
                     <% end %>
                     <%= sar_form.label(nil, "Network Share Security: Security Groups:") %>
-                    <%= collection_check_boxes(:system_access_request, :group_ids, Group.network_security_share, :id, :name) do | network_group | %>
+                    <%= sar_form.collection_check_boxes(:group_ids, Group.network_security_share, :id, :name) do | network_group | %>
                         <%= network_group.label { network_group.check_box + network_group.text } %>
                     <% end %>
             </div>

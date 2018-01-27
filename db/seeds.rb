@@ -56,8 +56,8 @@
     end
 
     [
-        'Accessioning', 'Administration', 'Billing (Business Office)', ' Human Resources', 'Information Technology',
-        'Lab – PGx', 'Lab – PGx', 'Shipping', 'Vendor', '1099 Employee', 'Other'
+        'Accessioning', 'Administration', 'Billing (Business Office)', 'Human Resources', 'Information Technology',
+        'Lab–PGx', 'Lab–Tox', 'Shipping', 'Vendor', '1099 Employee', 'Other'
 
     ].each do | department |
         Department.create!({ name: department})
