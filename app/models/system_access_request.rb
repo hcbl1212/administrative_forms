@@ -13,5 +13,8 @@ class SystemAccessRequest < ApplicationRecord
 
     REASONS = ['new', 'change', 'termination'].freeze.map(&:freeze)
 
+    def software_role(software_id)
+        SystemAccessRequestSoftware.find_by_software_id_and_system_access_request_id(software_id, self.id).role rescue nil
+    end
 
 end

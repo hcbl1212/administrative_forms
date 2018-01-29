@@ -1,5 +1,5 @@
 class Signature < ApplicationRecord
-    belongs_to :system_access_request
+    belongs_to :system_access_request, optional: true
 
     enum signature_type: {
         supervisor_manager: 1,

@@ -11,9 +11,14 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :employee %>
-    <%= form.radio_button :employee, id: :employee_employee, value: true %>
-    <%= form.radio_button :employee, id: :employee_employee, value: false %>
+    <%= form.label "employee_regular" do %>
+        <%= form.radio_button :employee, true, { id: "employee_employee_regular" } %>
+        Employee
+    <% end %>
+    <%= form.label "employee_non_regular" do %>
+        <%= form.radio_button :employee, false, { id: "employee_employee_non_regular" } %>
+        1099
+    <% end %>
   </div>
 
   <div class="field">
@@ -97,32 +102,33 @@
             <div class="privileged-access">
                 <div class="field">
                     <%= sar_form.label :privileged_access %>
-                    <%= sar_form.text_field :privileged_access, id: :privileged_access %>
+                    <%= sar_form.text_field :privileged_access, id: "employee_system_access_requests_attributes_0_privileged_access" %>
                 </div>
                 <div class="field">
                     <%= sar_form.label :business_justification %>
-                    <%= sar_form.text_field :business_justification, id: :business_justification %>
+                    <%= sar_form.text_field :business_justification, id: "employee_system_access_requests_attributes_0_business_justification" %>
                 </div>
             </div>
             <div class="other-access">
                 <div class="field">
                     <%= sar_form.label :other_access %>
-                    <%= sar_form.text_field :other_access, id: :other_access %>
+                    <%= sar_form.text_field :other_access, id: "employee_system_access_requests_attributes_0_other_access" %>
                 </div>
             </div>
             <div class="special-instructions">
                 <div class="field">
                     <%= sar_form.label :special_instructions %>
-                    <%= sar_form.text_field :special_instructions, id: :special_instructions %>
+                    <%= sar_form.text_field :special_instructions, id: "employee_system_access_requests_attributes_0_special_instructions" %>
                 </div>
             </div>
             <div class="signatures">
                 <%= sar_form.fields_for :signatures do | signature_form | %>
                     <div class="field">
-                        <%= signature_form.label :signature_manager_supervisor, Content::SIGNATURE_LABELS[signature_form.index ] %>
-                        <%= signature_form.text_field :signature, id: :signature_manager_supervisor %>
-                        <%= signature_form.date_select :date, id: :signature_manager_supervisor_date %>
-                        <%= signature_form.hidden_field :signature_type, id: :signature_manager_supervisor_type,
+                        <%= label_tag "signature_#{Signature.signature_types.key(signature_form.index + 1)}",
+                            Content::SIGNATURE_LABELS[signature_form.index] %>
+                        <%= signature_form.text_field :signature, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}" %>
+                        <%= signature_form.date_select :date, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}_date" %>
+                        <%= signature_form.hidden_field :signature_type, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}_type",
                             value: "#{ Signature.signature_types.key(signature_form.index + 1) }" %>
                     </div>
                 <% end %>
