@@ -22,8 +22,12 @@
         SystemAccessField.create!({ name: system_access_field})
     end
 
-    ['Supplies', 'Customer Support', 'IT-Reno', 'System Administration'].each do | group |
-        Group.create!({ name: group })
+    ['Lab', 'Manager', 'Accessioning', 'IT'].each do | group |
+        Group.create!({ name: group, group_type: 'network_security_share' })
+    end
+
+    ['Supplies', 'Customer Support', 'IT-Reno', 'Sales Rep', 'Everyone', 'Lab', 'Reporting'].each do | group |
+        Group.create!({ name: group, group_type: 'email' })
     end
 
     [
@@ -52,8 +56,8 @@
     end
 
     [
-        'Accessioning', 'Administration', 'Billing (Business Office)', ' Human Resources', 'Information Technology',
-        'Lab – PGx', 'Lab – PGx', 'Shipping', 'Vendor', '1099 Employee', 'Other'
+        'Accessioning', 'Administration', 'Billing (Business Office)', 'Human Resources', 'Information Technology',
+        'Lab–PGx', 'Lab–Tox', 'Shipping', 'Vendor', '1099 Employee', 'Other'
 
     ].each do | department |
         Department.create!({ name: department})

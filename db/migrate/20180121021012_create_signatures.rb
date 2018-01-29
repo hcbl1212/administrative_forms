@@ -4,7 +4,7 @@ class CreateSignatures < ActiveRecord::Migration[5.1]
       t.integer :signature_type
       t.integer :system_access_request_id
       t.string :signature
-      t.datetime :date
+      t.date :date
 
       t.timestamps
     end

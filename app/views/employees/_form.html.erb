@@ -11,8 +11,14 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :employee %>
-    <%= form.check_box :employee, id: :employee_employee %>
+    <%= form.label "employee_regular" do %>
+        <%= form.radio_button :employee, true, { id: "employee_employee_regular" } %>
+        Employee
+    <% end %>
+    <%= form.label "employee_non_regular" do %>
+        <%= form.radio_button :employee, false, { id: "employee_employee_non_regular" } %>
+        1099
+    <% end %>
   </div>
 
   <div class="field">
@@ -21,13 +27,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name, id: :employee_last_name %>
+    <%= form.label :middle_initial %>
+    <%= form.text_field :middle_initial, id: :employee_middle_initial %>
   </div>
 
   <div class="field">
-    <%= form.label :middle_initial %>
-    <%= form.text_field :middle_initial, id: :employee_middle_initial %>
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, id: :employee_last_name %>
   </div>
 
   <div class="field">
@@ -40,7 +46,7 @@
     <%= form.text_field :employee_email, id: :employee_employee_email %>
   </div>
 
-  <%= form.fields_for :system_access_request do | sar_form | %>
+  <%= form.fields_for :system_access_requests do | sar_form | %>
       <div class="system-access-requests">
           <div class="effective_date">
               <div class="field">
@@ -48,21 +54,10 @@
                 <%= sar_form.date_select :effective_date %>
               </div>
           </div>
-          <div class="job-title">
-              <div class="field">
-                <%= sar_form.label :job_title %>
-                <%= sar_form.text_field :job_title, id: :job_title %>
-              </div>
-          </div>
           <div class="departments">
             <h1>Departments</h1>
-            <%= sar_form.fields_for :department do | depart_form | %>
-                <% depart_form.collection_check_boxes(:department_ids, Department.all, :id, :name) do | department | %>
-                    <%= department.label { department.check_box + department.text } %>
-                    <% if department.text.match?(/Other/) %>
-                        <%= depart_form.text_field :other_text, id: :other_text %>
-                    <% end %>
-                <% end %>
+            <%= sar_form.collection_check_boxes(:department_ids, Department.all, :id, :name) do | department | %>
+                <%= department.label { department.check_box + department.text } %>
             <% end %>
           </div>
           <div class="reasons">
@@ -76,25 +71,68 @@
           </div>
           <div class="system-request-fields">
             <h1>System Access Request</h1>
-            <%= sar_form.fields_for :system_access_fields do | saf_form | %>
-                <% saf_form.collection_check_boxes(:system_access_field_ids, SystemAccessField.all, :id, :name) do | saf | %>
+                <%= sar_form.collection_check_boxes(:system_access_field_ids, SystemAccessField.all, :id, :name) do | saf | %>
                     <%= saf.label { saf.check_box + saf.text } %>
-                    <% if saf.text.match?(/^Sales/) %>
-                        <%= saf_form.text_field :sales_rep_email, id: :sales_rep_email %>
-                    <% end %>
                 <% end %>
-            <% end %>
-            <%= sar_form.fields_for :software do | software_form | %>
-                <% software_form.collection_check_boxes(:software_ids, Software.all, :id, :name) do | software | %>
-                    <%= software.label { software.check_box + software.text + ' Role:'} %>
-                    <%= sar_form.fields_for :role do | role_form | %>
-                        <% software_object = Software.find_by_name(software.text)%>
-                        <%= role_form.collection_radio_buttons(:role_ids, Software.find_by_name(software.text).roles, :id, :name) do | role | %>
-                            <%= role.label { role.radio_button + role.text } %>
+
+                <% for software in Software.all.includes(:roles) %>
+                    <%= sar_form.fields_for 'softwares[]', software do | software_form | %>
+                        <%= software_form.label(:id) do %>
+                            <%= software_form.check_box(:id, checked: false) %>
+                            <%= software_form.hidden_field(:id) %>
+                            <%= software.name %>
+                            <%= software_form.fields_for :roles do | role_form | %>
+                                <%= role_form.collection_radio_buttons(:role_ids, software.roles, :id, :name) do | role | %>
+                                        <%= role.label { role.radio_button + role.text } %>
+                                <% end %>
+                            <% end %>
                         <% end %>
                     <% end %>
                 <% end %>
-            <% end %>
+            <div class="groups">
+                    <%= sar_form.label(nil, "Email Groups:") %>
+                    <%= sar_form.collection_check_boxes(:group_ids, Group.email, :id, :name) do | email_group | %>
+                        <%= email_group.label { email_group.check_box + email_group.text } %>
+                    <% end %>
+                    <%= sar_form.label(nil, "Network Share Security: Security Groups:") %>
+                    <%= sar_form.collection_check_boxes(:group_ids, Group.network_security_share, :id, :name) do | network_group | %>
+                        <%= network_group.label { network_group.check_box + network_group.text } %>
+                    <% end %>
+            </div>
+            <div class="privileged-access">
+                <div class="field">
+                    <%= sar_form.label :privileged_access %>
+                    <%= sar_form.text_field :privileged_access, id: "employee_system_access_requests_attributes_0_privileged_access" %>
+                </div>
+                <div class="field">
+                    <%= sar_form.label :business_justification %>
+                    <%= sar_form.text_field :business_justification, id: "employee_system_access_requests_attributes_0_business_justification" %>
+                </div>
+            </div>
+            <div class="other-access">
+                <div class="field">
+                    <%= sar_form.label :other_access %>
+                    <%= sar_form.text_field :other_access, id: "employee_system_access_requests_attributes_0_other_access" %>
+                </div>
+            </div>
+            <div class="special-instructions">
+                <div class="field">
+                    <%= sar_form.label :special_instructions %>
+                    <%= sar_form.text_field :special_instructions, id: "employee_system_access_requests_attributes_0_special_instructions" %>
+                </div>
+            </div>
+            <div class="signatures">
+                <%= sar_form.fields_for :signatures do | signature_form | %>
+                    <div class="field">
+                        <%= label_tag "signature_#{Signature.signature_types.key(signature_form.index + 1)}",
+                            Content::SIGNATURE_LABELS[signature_form.index] %>
+                        <%= signature_form.text_field :signature, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}" %>
+                        <%= signature_form.date_select :date, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}_date" %>
+                        <%= signature_form.hidden_field :signature_type, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}_type",
+                            value: "#{ Signature.signature_types.key(signature_form.index + 1) }" %>
+                    </div>
+                <% end %>
+            </div>
           </div>
       </div>
   <% end %>

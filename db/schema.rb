@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180122012535) do
 
   create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
+    t.integer "group_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -46,7 +47,7 @@ ActiveRecord::Schema.define(version: 20180122012535) do
     t.integer "signature_type"
     t.integer "system_access_request_id"
     t.string "signature"
-    t.datetime "date"
+    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -79,7 +80,7 @@ ActiveRecord::Schema.define(version: 20180122012535) do
   end
 
   create_table "system_access_request_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "system_access_id"
+    t.integer "system_access_request_id"
     t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -95,13 +96,13 @@ ActiveRecord::Schema.define(version: 20180122012535) do
 
   create_table "system_access_request_system_access_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "system_access_request_id"
-    t.integer "system_access_field"
+    t.integer "system_access_field_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "system_access_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "effective_date"
+    t.date "effective_date"
     t.integer "employee_id"
     t.string "reason"
     t.string "privileged_access"
