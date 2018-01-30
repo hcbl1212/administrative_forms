@@ -1,0 +1,6 @@
+<%= software_form.label(:id) do %>
+    <%= software_form.check_box(:id, checked: false) %>
+    <%= software_form.hidden_field(:id) %>
+    <%= software.name %>
+    <%= render partial: 'employees/shared/roles', locals: { software_form: software_form, software: software}  %>
+<% end %>

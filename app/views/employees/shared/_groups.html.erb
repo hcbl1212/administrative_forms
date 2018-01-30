@@ -1,0 +1,6 @@
+<div class="groups">
+    <%= render partial: 'employees/shared/group', locals: { sar_form: sar_form, label_name: "Email Groups:", group_collection: Group.email }  %>
+    <%= render partial: 'employees/shared/group', locals: { sar_form: sar_form,
+                                                               label_name: "Network Share Security: Security Groups:",
+                                                               group_collection: Group.network_security_share }  %>
+</div>
