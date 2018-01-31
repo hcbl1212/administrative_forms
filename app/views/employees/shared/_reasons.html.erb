@@ -1,9 +1,9 @@
-<div class="reasons">
+<div class="row">
     <h1>Choose One</h1>
     <% SystemAccessRequest::REASONS.each do | reason | %>
-        <%= sar_form.label(:reason, value: reason) do %>
+        <div class="col s4">
             <%= sar_form.radio_button(:reason, reason) %>
-            <%= "This is a <span style='text-decoration:underline;'>#{reason}</span> user.".html_safe %>
-        <% end %>
+            <%= sar_form.label(:reason, "This is a <span style='text-decoration:underline;'>#{reason}</span> user.".html_safe, value: reason)%>
+        </div>
     <% end %>
 </div>

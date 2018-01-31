@@ -1,5 +1,10 @@
 <%= software_form.fields_for :roles do | role_form | %>
-    <%= role_form.collection_radio_buttons(:role_ids, software.roles, :id, :name) do | role | %>
-        <%= role.label { role.radio_button + role.text } %>
-    <% end %>
+    <div class="row">
+        <%= role_form.collection_radio_buttons(:role_ids, software.roles, :id, :name) do | role | %>
+            <div class="col s3">
+                <%= role.radio_button %>
+                <%= role.label %>
+            </div>
+        <% end %>
+    </div>
 <% end %>

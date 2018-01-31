@@ -1,3 +1,8 @@
-<%= sar_form.collection_check_boxes(:system_access_field_ids, SystemAccessField.all, :id, :name) do | saf | %>
-    <%= saf.label { saf.check_box + saf.text } %>
-<% end %>
+<div class="row">
+    <%= sar_form.collection_check_boxes(:system_access_field_ids, SystemAccessField.all, :id, :name) do | saf | %>
+        <div class="col s4">
+            <%= saf.check_box %>
+            <%= saf.label %>
+        </div>
+    <% end %>
+</div>

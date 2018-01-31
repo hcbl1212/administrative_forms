@@ -1,4 +1,5 @@
 $(document).ready(function() {
-    // $('.row').find('span.effective-date').find('.select-dropdown').addClass('col s4');
-    $('select').material_select();
+    $.when($('select').material_select()).then(function() {
+       $('.row').find('span.effective-date').find('.select-wrapper').addClass('col s4');
+    });
 });

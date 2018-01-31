@@ -1,5 +1,7 @@
 <% for software in Software.all.includes(:roles) %>
     <%= sar_form.fields_for 'softwares[]', software do | software_form | %>
-        <%= render partial: 'employees/shared/software', locals: { software_form: software_form, software: software }  %>
+        <div class="row">
+            <%= render partial: 'employees/shared/software', locals: { software_form: software_form, software: software } %>
+        </div>
     <% end %>
 <% end %>
