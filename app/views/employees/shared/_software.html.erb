@@ -1,6 +1,6 @@
 <div class="col s12">
     <%= software_form.check_box(:id, checked: false) %>
-    <%= software_form.label(software.name) %>
+    <%= software_form.label(:id, software.name) %>
     <%= software_form.hidden_field(:id) %>
     <%= render partial: 'employees/shared/roles', locals: { software_form: software_form, software: software}  %>
 </div>

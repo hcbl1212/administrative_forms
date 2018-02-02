@@ -1,20 +1,20 @@
+<h4 class="text-align-center">System Access Request Form</h4>
 <div class="row">
-    <div class="col s2">
-        This form is for a:
+    <div class="col s3">
+        <label style="font-size:15px">This form is for a:</label>
     </div>
     <div class="col s4">
-    <%= form.radio_button :employee, true, { id: "employee_employee_regular", class: "with-gap" } %>
-    <%= form.label "employee_regular", "Employee" %>
+        <%= form.radio_button :employee, true, { id: "employee_employee_regular", class: "with-gap validate" } %>
+        <%= form.label "employee_regular", "Employee"%>
     </div>
     <div class="col s5">
-    <%= form.radio_button :employee, false, { id: "employee_employee_non_regular", class: "with-gap" } %>
-    <%= form.label "employee_non_regular", "Vendor / Non Employee (1099 / contract)" %>
+        <%= form.radio_button :employee, false, { id: "employee_employee_non_regular", class: "with-gap validate" } %>
+        <%= form.label "employee_non_regular", "Vendor / Non Employee (1099 / contract)" %>
     </div>
 </div>
 
 <div class="row">
     <div class="input-field col s5">
-        <i class="material-icons prefix">account_circle</i>
         <%= form.label :first_name %>
         <%= form.text_field :first_name, id: :employee_first_name %>
     </div>
@@ -32,13 +32,11 @@
 
 <div class="row">
     <div class="input-field col s6">
-        <i class="material-icons prefix">person</i>
         <%= form.label :job_title %>
         <%= form.text_field :job_title, id: :employee_job_title %>
     </div>
 
     <div class="input-field col s6">
-        <i class="material-icons prefix">email</i>
         <%= form.label :employee_email %>
         <%= form.text_field :employee_email, id: :employee_employee_email %>
     </div>

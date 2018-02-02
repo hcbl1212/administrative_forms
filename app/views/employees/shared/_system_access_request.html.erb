@@ -1,37 +1,56 @@
 <%= form.fields_for :system_access_requests do | sar_form | %>
     <span class="system-access-requests">
-        <div class="row">
-            <span class="effective-date">
-                <%= sar_form.label :effective_date %>
-                <%= sar_form.date_select :effective_date %>
-            <span>
+                <div class="row">
+                    <span class="effective-date">
+                        <%= sar_form.label :effective_date %>
+                        <%= sar_form.date_select :effective_date %>
+                    <span>
+                </div>
+            </div> <!-- end of card content from _form -->
+        </div><!-- end of card from _form -->
+        <div class="card">
+            <div class="card-content">
+                <%= render partial: 'employees/shared/departments', locals: { sar_form: sar_form}  %>
+            </div>
         </div>
-        <%= render partial: 'employees/shared/departments', locals: { sar_form: sar_form}  %>
-        <%= render partial: 'employees/shared/reasons', locals: { sar_form: sar_form}  %>
-        <h1>System Access Request</h1>
-        <%= render partial: 'employees/shared/system_access_fields', locals: { sar_form: sar_form}  %>
+        <div class="card">
+            <div class="card-content">
+                <%= render partial: 'employees/shared/reasons', locals: { sar_form: sar_form}  %>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <h4 class="text-align-center">System Access</h4>
+                <%= render partial: 'employees/shared/system_access_fields', locals: { sar_form: sar_form}  %>
+            </div>
+        </div>
         <%= render partial: 'employees/shared/softwares', locals: { sar_form: sar_form}  %>
         <%= render partial: 'employees/shared/groups', locals: { sar_form: sar_form}  %>
-        <div class="row">
-            <div class="col s6">
-                <%= sar_form.label :privileged_access %>
-                <%= sar_form.text_field :privileged_access, id: "employee_system_access_requests_attributes_0_privileged_access" %>
+        <div class="card">
+            <div class="card-content">
+                <h4 class="text-align-center">Additional Requests</h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <%= sar_form.label :privileged_access %>
+                        <%= sar_form.text_field :privileged_access, id: "employee_system_access_requests_attributes_0_privileged_access" %>
+                    </div>
+                    <div class="input-field col s6">
+                        <%= sar_form.label :business_justification %>
+                        <%= sar_form.text_field :business_justification, id: "employee_system_access_requests_attributes_0_business_justification" %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <%= sar_form.label :other_access %>
+                        <%= sar_form.text_field :other_access, id: "employee_system_access_requests_attributes_0_other_access" %>
+                    </div>
+                    <div class="input-field col s6">
+                        <%= sar_form.label :special_instructions %>
+                        <%= sar_form.text_field :special_instructions, id: "employee_system_access_requests_attributes_0_special_instructions" %>
+                    </div>
+                        <%#= render partial: 'employees/shared/signatures', locals: { sar_form: sar_form}  %>
+                </div>
             </div>
-            <div class="col s6">
-                <%= sar_form.label :business_justification %>
-                <%= sar_form.text_field :business_justification, id: "employee_system_access_requests_attributes_0_business_justification" %>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s6">
-                    <%= sar_form.label :other_access %>
-                    <%= sar_form.text_field :other_access, id: "employee_system_access_requests_attributes_0_other_access" %>
-            </div>
-            <div class="col s6">
-                    <%= sar_form.label :special_instructions %>
-                    <%= sar_form.text_field :special_instructions, id: "employee_system_access_requests_attributes_0_special_instructions" %>
-            </div>
-            <%#= render partial: 'employees/shared/signatures', locals: { sar_form: sar_form}  %>
         </div>
     </span>
 <% end %>

@@ -1,7 +1,16 @@
-<% for software in Software.all.includes(:roles) %>
-    <%= sar_form.fields_for 'softwares[]', software do | software_form | %>
-        <div class="row">
-            <%= render partial: 'employees/shared/software', locals: { software_form: software_form, software: software } %>
-        </div>
-    <% end %>
-<% end %>
+<div class="card">
+    <div class="card-content">
+        <h4 class="text-align-center">Softwares</h4>
+        <% for software in Software.all.includes(:roles) %>
+            <%= sar_form.fields_for 'softwares[]', software do | software_form | %>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row software">
+                            <%= render partial: 'employees/shared/software', locals: { software_form: software_form, software: software } %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+</div>

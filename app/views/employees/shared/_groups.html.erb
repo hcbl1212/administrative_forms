@@ -1,12 +1,17 @@
-<div class="row">
-    <div class="col s12">
-        <%= render partial: 'employees/shared/group', locals: { sar_form: sar_form, label_name: "Email Groups:", group_collection: Group.email }  %>
-    </div>
-</row>
-<div class="row">
-    <div class="col s12">
-        <%= render partial: 'employees/shared/group', locals: { sar_form: sar_form,
-                                                               label_name: "Network Share Security: Security Groups:",
-                                                               group_collection: Group.network_security_share }  %>
+<div class="card">
+    <div class="card-content">
+        <h3 class="text-align-center">Groups</h3>
+        <div class="row">
+            <div class="col s12">
+                <%= render partial: 'employees/shared/group', locals: { sar_form: sar_form, label_name: "Email Groups:", group_collection: Group.email }  %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <%= render partial: 'employees/shared/group', locals: { sar_form: sar_form,
+                                                                       label_name: "Network Share Security: Security Groups:",
+                                                                       group_collection: Group.network_security_share }  %>
+            </div>
+        </div>
     </div>
 </div>

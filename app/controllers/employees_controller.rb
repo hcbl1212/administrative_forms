@@ -62,6 +62,7 @@ class EmployeesController < ApplicationController
                         end
                     end
                 end
+=begin
 
                 0.upto(2).each do | index |
                     signature = system_access_requests_params[:signatures_attributes][index.to_s]
@@ -73,6 +74,7 @@ class EmployeesController < ApplicationController
                         })
                     end
                 end
+=end
                 #populate all of the softwares and their roles
                 Software.first.id.upto(Software.last.id).each do | index |
                     software = system_access_requests_params[:softwares][index.to_s]

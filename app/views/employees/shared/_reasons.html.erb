@@ -1,5 +1,5 @@
 <div class="row">
-    <h1>Choose One</h1>
+    <h4 class="text-align-center">Choose One</h4>
     <% SystemAccessRequest::REASONS.each do | reason | %>
         <div class="col s4">
             <%= sar_form.radio_button(:reason, reason) %>
