@@ -30,5 +30,69 @@
   <%= @employee.employee_email %>
 </p>
 
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+<% @employee.system_access_requests.each do | sar | %>
+     <p>
+        <strong>Effective Date:</strong>
+        <%= sar.effective_date.strftime('%Y-%m-%d') %>
+    </p>
+    <p>
+        <strong>Reason</strong>
+        <%= sar.reason %>
+    </p>
+
+    <strong>Departments</strong>
+    <% sar.departments.each do | dep |  %>
+        <p>
+            <%= dep.name %>
+        </p>
+    <% end %>
+
+    <strong>System Access</strong>
+    <% sar.system_access_fields.each do | saf |  %>
+        <p>
+            <%= saf.name %>
+        </p>
+    <% end %>
+
+    <strong>Softwares</strong>
+    <% sar.softwares.each do | soft |  %>
+        <p>
+            Software:
+            <%= soft.name %>
+        </p>
+        <p>
+            Role:
+            <%= sar.software_role(soft.id).name %>
+        </p>
+    <% end %>
+
+    <strong>Groups</strong>
+    <% sar.groups.each do | group |  %>
+        <p>
+            Group Type:
+            <%= group.group_type %>
+        </p>
+        <p>
+            Group:
+            <%= group.name %>
+        </p>
+    <% end %>
+
+    <strong>Additional Requests</strong>
+     <p>
+        <strong>Privileged Access</strong>
+        <%= sar.privileged_access %>
+    </p>
+     <p>
+        <strong>Business Justification</strong>
+        <%= sar.business_justification %>
+     </p>
+     <p>
+        <strong>Other Access</strong>
+        <%= sar.other_access %>
+     </p>
+     <p>
+        <strong>Special Instructions</strong>
+        <%= sar.special_instructions %>
+     </p>
+ <% end %>

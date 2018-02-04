@@ -1,0 +1,11 @@
+<%= software_form.fields_for :roles do | role_form | %>
+    <div class="row">
+        <h6>Roles:</h6>
+        <%= role_form.collection_radio_buttons(:role_ids, software.roles, :id, :name, {}, { class: "with-gap" }) do | role | %>
+            <div class="col s3">
+                <%= role.radio_button %>
+                <%= role.label %>
+            </div>
+        <% end %>
+    </div>
+<% end %>

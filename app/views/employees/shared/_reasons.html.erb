@@ -1,0 +1,10 @@
+<div class="row">
+    <%= required_field.html_safe %>
+    <h4 class="text-align-center">Choose One</h4>
+    <% SystemAccessRequest::REASONS.each do | reason | %>
+        <div class="col s4">
+            <%= sar_form.radio_button(:reason, reason, class: "with-gap") %>
+            <%= sar_form.label(:reason, "This is a <span style='text-decoration:underline;'>#{reason}</span> user.".html_safe, value: reason)%>
+        </div>
+    <% end %>
+</div>

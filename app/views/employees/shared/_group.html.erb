@@ -1,0 +1,7 @@
+<%= sar_form.label(nil, label_name, class: 'bigger-label-text') %>
+<%= sar_form.collection_check_boxes(:group_ids, group_collection, :id, :name) do | item_group | %>
+    <div class="col s4">
+        <%= item_group.check_box %>
+        <%= item_group.label %>
+    </div>
+<% end %>

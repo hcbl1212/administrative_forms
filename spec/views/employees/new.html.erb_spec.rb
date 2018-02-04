@@ -31,9 +31,6 @@ RSpec.describe "employees/new", type: :view do
       assert_select "input[name=?]", "employee[system_access_requests_attributes][0][privileged_access]"
       assert_select "input[name=?]", "employee[system_access_requests_attributes][0][other_access]"
       assert_select "input[name=?]", "employee[system_access_requests_attributes][0][special_instructions]"
-      assert_select "input[id=?]", "signature_supervisor_manager"
-      assert_select "input[id=?]", "signature_it_security"
-      assert_select "input[id=?]", "signature_it_dept_sign_off"
     end
   end
 end

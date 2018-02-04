@@ -1,0 +1,88 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require materialize
+ *= require material_icons
+ *= require_tree .
+ *= require_self
+ */
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    label {
+      display: block;
+    }
+
+    nav {
+        .brand-logo {
+            width: 140px;
+            height: auto;
+            padding: 10px;
+        }
+    }
+
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+        height: 90px;
+        line-height: 90px;
+    }
+
+    .container {
+        width: 100%;
+        margin-right: 33px;
+        margin-left: 33px;
+        max-width: 1445px;
+    }
+}
+
+.pipe {
+    display: inline-block;
+    margin-right: 2.5px;
+    margin-left: 2.5px;
+}
+.input-field label{
+    width: 100%;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+h4.text-align-center {
+    margin-top: 0;
+}
+
+
+div.software.row {
+    margin-bottom: 0;
+}
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+[type="radio"]:not(:checked),
+[type="radio"]:checked {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}

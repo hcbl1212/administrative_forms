@@ -1,0 +1,12 @@
+<div class="signatures">
+    <%= sar_form.fields_for :signatures do | signature_form | %>
+        <div class="field">
+            <%= label_tag "signature_#{Signature.signature_types.key(signature_form.index + 1)}",
+                            Content::SIGNATURE_LABELS[signature_form.index] %>
+            <%= signature_form.text_field :signature, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}" %>
+            <%= signature_form.date_select :date, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}_date" %>
+            <%= signature_form.hidden_field :signature_type, id: "signature_#{Signature.signature_types.key(signature_form.index + 1)}_type",
+                            value: "#{ Signature.signature_types.key(signature_form.index + 1) }" %>
+        </div>
+    <% end %>
+</div>

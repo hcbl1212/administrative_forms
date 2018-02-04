@@ -1,3 +1,20 @@
 // Place all the styles related to the employees controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+input[type='radio'].invalid + label:before {
+    border: 2px solid #F44336;
+}
+
+input[type='checkbox'].invalid + label:before {
+    border: 2px solid #F44336;
+}
+
+.bigger-label-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.required {
+    color: #F44336;
+}

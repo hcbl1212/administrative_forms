@@ -32,10 +32,9 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   Capybara.javascript_driver = :webkit
+
   config.include FactoryBot::Syntax::Methods
-  config.before do
-    FactoryBot.find_definitions
-  end
+  FactoryBot.find_definitions
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

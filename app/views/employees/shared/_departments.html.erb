@@ -1,0 +1,9 @@
+<div class="row">
+    <h4 class="text-align-center">Departments</h4>
+    <%= sar_form.collection_check_boxes(:department_ids, Department.all, :id, :name) do | department | %>
+        <div class="col s4">
+            <%= department.check_box%>
+            <%= department.label %>
+        </div>
+    <% end %>
+</div>

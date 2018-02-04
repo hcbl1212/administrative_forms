@@ -1,0 +1,43 @@
+<h4 class="text-align-center">System Access Request Form</h4>
+<div class="row no-margin-bottom">
+    <div class="col s3">
+        <label style="font-size:15px">This form is for a:<%= required_field("The employee must have a type.").html_safe %></label>
+    </div>
+    <div class="col s4">
+        <%= form.radio_button :employee, true, { id: "employee_employee_regular", class: "with-gap" } %>
+        <%= form.label "employee_regular", "Employee"%>
+    </div>
+    <div class="col s5">
+        <%= form.radio_button :employee, false, { id: "employee_employee_non_regular", class: "with-gap" } %>
+        <%= form.label "employee_non_regular", "Vendor / Non Employee (1099 / contract)" %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s5">
+        <%= form.label :first_name, "First name #{required_field}".html_safe %>
+        <%= form.text_field :first_name, id: :employee_first_name %>
+    </div>
+
+    <div class="input-field col s2">
+        <%= form.text_field :middle_initial, id: :employee_middle_initial %>
+        <%= form.label :middle_initial %>
+    </div>
+
+    <div class="input-field col s5">
+        <%= form.text_field :last_name, id: :employee_last_name %>
+        <%= form.label :last_name, "Last name #{required_field}".html_safe %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s6">
+        <%= form.label :job_title %>
+        <%= form.text_field :job_title, id: :employee_job_title %>
+    </div>
+
+    <div class="input-field col s6">
+        <%= form.label :employee_email %>
+        <%= form.text_field :employee_email, id: :employee_employee_email %>
+    </div>
+</div>
