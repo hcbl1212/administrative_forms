@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html class="grey lighten-5">
     <head>
-        <title>AdministrativeForms</title>
+        <title>MD Labs Forms</title>
+        <%= favicon_link_tag asset_path("apple-icon-57x57.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("apple-icon-60x60.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("apple-icon-72x72.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("apple-icon-76x76.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("apple-icon-114x114.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("apple-icon-120x120.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("apple-icon-144x144.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("apple-icon-152x152.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("apple-icon-180x180.png"), :rel => "apple-touch-icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("android-icon-192x192.png"), :rel => "icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("favicon-32x32.png"), :rel => "icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("favicon-96x96.png"), :rel => "icon", :type =>  'image/png' %>
+        <%= favicon_link_tag asset_path("favicon-16x16.png"), :rel => "icon", :type =>  'image/png' %>
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
         <%= csrf_meta_tags %>
 
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     </head>
 
     <body>
+        <%= render 'layouts/navigation/nav' %>
+        <div class="container">
             <%= yield %>
+        </div>
+        <%= render 'layouts/footer/footer' %>
     </body>
 </html>

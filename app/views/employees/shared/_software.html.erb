@@ -2,5 +2,6 @@
     <%= software_form.check_box(:id, checked: false) %>
     <%= software_form.label(:id, software.name) %>
     <%= software_form.hidden_field(:id) %>
+    <%= required_field("If a software is chosen a role is required.").html_safe %>
     <%= render partial: 'employees/shared/roles', locals: { software_form: software_form, software: software}  %>
 </div>

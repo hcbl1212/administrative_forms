@@ -1,0 +1,29 @@
+<nav class="teal lighten-5">
+    <div class="nav-wrapper">
+        <div class="container">
+            <%= image_tag "mdlabs-logo.png", class: "brand-logo" %>
+            <ul id="nav-mobile" class="right grey-text hide-on-med-and-down">
+                <li>
+                    <%= render 'layouts/navigation/forms_dropdown' %>
+                    <a class="dropdown-button grey-text"  data-activates="forms-dropdown-menu">
+                        <i class="material-icons left">note_add</i>
+                        Forms
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="grey-text" href="badges.html">
+                        <i class="material-icons left">list</i>
+                        Pending Requests
+                    </a>
+                </li>
+                <li>
+                    <a class="grey-text" href="collapsible.html">
+                        <i class="material-icons left">library_books</i>
+                        Resources
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

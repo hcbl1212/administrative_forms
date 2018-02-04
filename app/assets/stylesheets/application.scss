@@ -16,6 +16,46 @@
  *= require_self
  */
 
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    label {
+      display: block;
+    }
+
+    nav {
+        .brand-logo {
+            width: 140px;
+            height: auto;
+            padding: 10px;
+        }
+    }
+
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+        height: 90px;
+        line-height: 90px;
+    }
+
+    .container {
+        width: 100%;
+        margin-right: 33px;
+        margin-left: 33px;
+        max-width: 1445px;
+    }
+}
+
+.pipe {
+    display: inline-block;
+    margin-right: 2.5px;
+    margin-left: 2.5px;
+}
 .input-field label{
     width: 100%;
 }
@@ -24,10 +64,25 @@
     text-align: center;
 }
 
-h3.text-align-center {
+h4.text-align-center {
     margin-top: 0;
 }
 
+
 div.software.row {
     margin-bottom: 0;
+}
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+[type="radio"]:not(:checked),
+[type="radio"]:checked {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }

@@ -29,6 +29,7 @@
         <div class="card">
             <div class="card-content">
                 <h4 class="text-align-center">Additional Requests</h4>
+                <%= required_field('A business justification is required for privileged access.').html_safe %>
                 <div class="row">
                     <div class="input-field col s6">
                         <%= sar_form.label :privileged_access %>
@@ -48,7 +49,6 @@
                         <%= sar_form.label :special_instructions %>
                         <%= sar_form.text_field :special_instructions, id: "employee_system_access_requests_attributes_0_special_instructions" %>
                     </div>
-                        <%#= render partial: 'employees/shared/signatures', locals: { sar_form: sar_form}  %>
                 </div>
             </div>
         </div>
