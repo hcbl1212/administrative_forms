@@ -53,46 +53,48 @@ RSpec.feature "Employees", type: :feature do
     end
 
     scenario "Create a new Employee and System Access Request", js: true do
-        visit "/"
-        #puts page.body.inspect
+        visit "/employees/new"
         assert_equal 0, Employee.count
-        choose "employee_employee_regular"
+        first('label', text: "Employee", visible: false).trigger('click')
         fill_in "First name", with: "New"
         fill_in "Middle initial", with: "Sales"
         fill_in "Last name", with: "Representative"
         fill_in "Job title", with: "Saler of stuff"
         fill_in "Employee email", with: "sales@representative.com"
-        select "2014", from: "employee[system_access_requests_attributes][0][effective_date(1i)]"
-        select "January", from: "employee[system_access_requests_attributes][0][effective_date(2i)]"
-        select "28", from: "employee[system_access_requests_attributes][0][effective_date(3i)]"
-        check "Accessioning Dep"
-        check "Information Technology Dep"
-        check "Vendor Dep"
-        choose "employee_system_access_requests_attributes_0_reason_new"
-        check "Email (@MDlabs.com and / or @Rxight.com) SAS"
-        check "Security Training (NAScyberNET) SAS"
-        check "Client Portal SAS"
-        check "Sales Rep Portal (Email required): SAS"
-        check "Billing (Telcor) Software"
-        choose "Billing Manager Role"
-        check "Clearinghouse (Zirmed) Software"
-        choose "Claims Role"
-        check "LIS (LabHealth) Software"
-        choose "Lab General Role"
-        check 'IT Group'
-        check 'Manager Group'
-        check 'Supplies Group'
-        check 'Customer Support Group'
+        select("2014", from: "employee[system_access_requests_attributes][0][effective_date(1i)]", visible: false)
+        select("January", from: "employee[system_access_requests_attributes][0][effective_date(2i)]", visible: false)
+        select("28", from: "employee[system_access_requests_attributes][0][effective_date(3i)]", visible: false)
+        find('label', text: "Accessioning Dep").trigger('click')
+        find('label', text: "Information Technology Dep").trigger('click')
+        find('label', text: "Vendor Dep").trigger('click')
+        first('label', text: "This is a new user", visible: false).trigger('click')
+
+        s1 = Software.first.id
+        r1 = Role.find_by_name("Billing Manager Role").id
+        first("#employee_system_access_requests_attributes_0_softwares_#{s1}_id", visible: false).trigger('click')
+        find("#employee_system_access_requests_attributes_0_softwares_#{s1}_roles_role_ids_#{r1}", visible: false).trigger('click')
+
+        s2 = Software.second.id
+        r2 = Role.find_by_name("Claims Role").id
+        first("#employee_system_access_requests_attributes_0_softwares_#{s2}_id", visible: false).trigger('click')
+        find("#employee_system_access_requests_attributes_0_softwares_#{s2}_roles_role_ids_#{r2}", visible: false).trigger('click')
+
+        s3 = Software.third.id
+        r3 = Role.find_by_name("Lab General Role").id
+        first("#employee_system_access_requests_attributes_0_softwares_#{s3}_id", visible: false).trigger('click')
+        find("#employee_system_access_requests_attributes_0_softwares_#{s3}_roles_role_ids_#{r3}", visible: false).trigger('click')
+
+        find('label', text: "IT Group").trigger('click')
+        find('label', text: "Manager Group").trigger('click')
+        find('label', text: "Supplies Group").trigger('click')
+        find('label', text: "Customer Support Group").trigger('click')
+
         fill_in "Privileged access", with: "I like extra access"
         fill_in "Business justification", with: "I said please"
         fill_in "Other access", with: "I like other access"
         fill_in "Special instructions", with: "I like to have special instructions"
-        fill_in "Supervisor/Manager’s Signature:", with: "Captain Supervisor"
-        select "2015", from: "employee[system_access_requests_attributes][0][signatures_attributes][0][date(1i)]"
-        select "March", from: "employee[system_access_requests_attributes][0][signatures_attributes][0][date(2i)]"
-        select "15", from: "employee[system_access_requests_attributes][0][signatures_attributes][0][date(3i)]"
-        click_button('Create Employee')
-        sleep(1)
+        click_button('Request Access')
+        sleep(3)
         assert_equal 1, Employee.all.count
         employee = Employee.last
         assert_equal true, employee.employee
@@ -114,13 +116,6 @@ RSpec.feature "Employees", type: :feature do
         ord_dep.each_with_index do | dep, index |
             assert_equal accepted_departments[index], dep.name
         end
-        accepted_system_access_fields = ["Client Portal SAS", "Email (@MDlabs.com and / or @Rxight.com) SAS",
-                                         "Sales Rep Portal (Email required): SAS", "Security Training (NAScyberNET) SAS"]
-        assert_equal 4, system_access_request.system_access_fields.count
-        ord_safs = system_access_request.system_access_fields.order("name")
-        ord_safs.each_with_index do | saf, index |
-            assert_equal accepted_system_access_fields[index], saf.name
-        end
         accepted_softwares_and_role = {"Billing (Telcor) Software": "Billing Manager Role",
                                        "LIS (LabHealth) Software": "Lab General Role",
                                        "Clearinghouse (Zirmed) Software": "Claims Role"}
@@ -141,9 +136,5 @@ RSpec.feature "Employees", type: :feature do
         em_group.each_with_index do | email, index |
             assert_equal email_group[index], email.name
         end
-
-        assert_equal 3, system_access_request.signatures.count
-        manager_type = system_access_request.signatures.where({signature_type: "supervisor_manager"}).first
-        assert_equal "Captain Supervisor", manager_type.signature
     end
 end
