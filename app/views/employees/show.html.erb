@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col s3">
                 <strong>Employee email:</strong>
-                <%= @employee.employee_email %>
+                <%= @employee.email %>
             </div>
             <% [*@employee.system_access_requests.last].each do | sar | %>
                 <div class="col s3">

@@ -2,30 +2,36 @@
     <div class="nav-wrapper">
         <div class="container">
             <%= image_tag "mdlabs-logo.png", class: "brand-logo" %>
-            <ul id="nav-mobile" class="right grey-text hide-on-med-and-down">
-                <li>
-                    <%= render 'layouts/navigation/forms_dropdown' %>
-                    <a class="dropdown-button grey-text"  data-activates="forms-dropdown-menu">
-                        <i class="material-icons left">note_add</i>
-                        Administrative Forms
-                        <i class="material-icons right">arrow_drop_down</i>
-                    </a>
-                </li>
-                <li>
-                    <%= render 'layouts/navigation/submitted_request_dropdown' %>
-                    <a class="dropdown-button grey-text" data-activates="requests-dropdown-menu">
-                        <i class="material-icons left">list</i>
-                        Submitted Requests
-                        <i class="material-icons right">arrow_drop_down</i>
-                    </a>
-                </li>
-                <li>
-                    <a class="grey-text" href="collapsible.html">
-                        <i class="material-icons left">library_books</i>
-                        Resources
-                    </a>
-                </li>
-            </ul>
+            <% if employee_signed_in? %>
+                <ul id="nav-mobile" class="right grey-text hide-on-med-and-down">
+                    <li>
+                        <%= render 'layouts/navigation/forms_dropdown' %>
+                        <a class="dropdown-button grey-text"  data-activates="forms-dropdown-menu">
+                            <i class="material-icons left">note_add</i>
+                            Administrative Forms
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                    <li>
+                        <%= render 'layouts/navigation/submitted_request_dropdown' %>
+                        <a class="dropdown-button grey-text" data-activates="requests-dropdown-menu">
+                            <i class="material-icons left">list</i>
+                            Submitted Requests
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="grey-text" href="collapsible.html">
+                            <i class="material-icons left">library_books</i>
+                            Resources
+                        </a>
+                    </li>
+                    <li>
+                        <%= link_to "Sign Out <i class='material-icons left'>lock_open</i>".html_safe,
+                            destroy_employee_session_path, class: "grey-text", method: :delete %>
+                    </li>
+                </ul>
+            <% end %>
         </div>
     </div>
 </nav>

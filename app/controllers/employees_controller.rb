@@ -29,7 +29,7 @@ class EmployeesController < ApplicationController
     def create
         Employee.transaction do
             #so we are either going to add it to an existing employee or create a new one
-            @employee = Employee.find_by_employee_email(employee_params[:employee_email])
+            @employee = Employee.find_by_email(employee_params[:email])
             @employee = Employee.create_new_employee!(employee_params) if @employee.nil?
             raise ActiveRecord::Rollback unless SystemAccessRequest.transaction(requires_new: true) do
                 system_access_requests_params = employee_params[:system_access_requests_attributes]["0"]
@@ -104,7 +104,7 @@ class EmployeesController < ApplicationController
         # Never trust parameters from the scary internet, only allow the white list through.
         def employee_params
             params.require(:employee).permit(
-                :employee, :first_name, :last_name, :middle_initial, :job_title, :employee_email,
+                :employee, :first_name, :last_name, :middle_initial, :job_title, :email,
                 {
                     system_access_requests_attributes: [
                                         :effective_date, :reason, :privileged_access, :business_justification,

@@ -16,6 +16,13 @@
  *= require_self
  */
 
+.login-card {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 445px;
+}
+
 .no-margin-bottom {
     margin-bottom: 0 !important;
 }
@@ -45,8 +52,8 @@ html, body {
 
     .container {
         width: 100%;
-        margin-right: 33px;
-        margin-left: 33px;
+        // margin-right: 33px;
+        // margin-left: 33px;
         max-width: 1445px;
     }
 }
