@@ -7,14 +7,16 @@
                     <%= render 'layouts/navigation/forms_dropdown' %>
                     <a class="dropdown-button grey-text"  data-activates="forms-dropdown-menu">
                         <i class="material-icons left">note_add</i>
-                        Forms
+                        Administrative Forms
                         <i class="material-icons right">arrow_drop_down</i>
                     </a>
                 </li>
                 <li>
-                    <a class="grey-text" href="badges.html">
+                    <%= render 'layouts/navigation/submitted_request_dropdown' %>
+                    <a class="dropdown-button grey-text" data-activates="requests-dropdown-menu">
                         <i class="material-icons left">list</i>
-                        Pending Requests
+                        Submitted Requests
+                        <i class="material-icons right">arrow_drop_down</i>
                     </a>
                 </li>
                 <li>

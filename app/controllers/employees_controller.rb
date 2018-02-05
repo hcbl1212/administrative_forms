@@ -28,7 +28,9 @@ class EmployeesController < ApplicationController
     # POST /employees.json
     def create
         Employee.transaction do
-            @employee = Employee.create_new_employee!(employee_params)
+            #so we are either going to add it to an existing employee or create a new one
+            @employee = Employee.find_by_employee_email(employee_params[:employee_email])
+            @employee = Employee.create_new_employee!(employee_params) if @employee.nil?
             raise ActiveRecord::Rollback unless SystemAccessRequest.transaction(requires_new: true) do
                 system_access_requests_params = employee_params[:system_access_requests_attributes]["0"]
                 system_access_request = SystemAccessRequest.create_new_system_access!(system_access_requests_params, @employee)
@@ -95,7 +97,8 @@ class EmployeesController < ApplicationController
     private
         # Use callbacks to share common setup or constraints between actions.
         def set_employee
-            @employee = Employee.find(params[:id])
+            @employee = Employee.includes({
+                system_access_requests: [:groups, :departments, :softwares, :system_access_fields] }).find(params[:id])
         end
 
         # Never trust parameters from the scary internet, only allow the white list through.
