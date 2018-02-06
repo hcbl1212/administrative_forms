@@ -12,11 +12,14 @@ class SystemAccessRequest < ApplicationRecord
     has_many :signatures, dependent: :destroy
     accepts_nested_attributes_for :signatures
 
+    enum state: [:pending, :rejected, :approved]
+
     REASONS = ['new', 'change', 'termination'].freeze.map(&:freeze)
 
     class << self
         def create_new_system_access!(attributes, employee)
             system_access_request = SystemAccessRequest.new
+            system_access_request.pending!
             system_access_request.reason = attributes[:reason]
             system_access_request.effective_date = system_access_request.format_date(attributes, "effective_date".freeze)
             system_access_request.privileged_access = attributes[:privileged_access]
