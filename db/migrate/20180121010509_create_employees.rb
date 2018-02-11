@@ -6,7 +6,6 @@ class CreateEmployees < ActiveRecord::Migration[5.1]
       t.string :last_name
       t.string :middle_initial
       t.string :job_title
-      t.string :employee_email
 
       t.timestamps
     end

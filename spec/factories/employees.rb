@@ -4,7 +4,7 @@ FactoryBot.define do
         first_name ""
         middle_initial ""
         last_name ""
-        employee_email ""
+        email ""
         job_title ""
     end
 end

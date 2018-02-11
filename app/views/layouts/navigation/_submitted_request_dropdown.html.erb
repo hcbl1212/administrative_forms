@@ -1,0 +1,4 @@
+<ul id="requests-dropdown-menu" class="dropdown-content">
+    <li><%= link_to "Pending Requests", employee_pending_system_access_requests_path(employee_id: current_employee.id) %></li>
+    <li><%= link_to "Not Pending Requests", employee_not_pending_system_access_requests_path(employee_id: current_employee.id) %></li>
+</ul>

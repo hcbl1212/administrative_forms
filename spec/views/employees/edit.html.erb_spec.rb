@@ -8,7 +8,8 @@ RSpec.describe "employees/edit", type: :view do
       :last_name => "MyString",
       :middle_initial => "MyString",
       :job_title => "MyString",
-      :employee_email => "MyString"
+      :email => "test@email.com",
+      :password => "testtest1212"
     ))
   end
 
@@ -27,7 +28,7 @@ RSpec.describe "employees/edit", type: :view do
 
       assert_select "input[name=?]", "employee[job_title]"
 
-      assert_select "input[name=?]", "employee[employee_email]"
+      assert_select "input[name=?]", "employee[email]"
     end
   end
 end

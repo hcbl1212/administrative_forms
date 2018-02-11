@@ -1,15 +1,4 @@
 $(document).on('turbolinks:load', function() {
-    $.when($('select').material_select()).then(function() {
-       $('.row').find('span.effective-date').find('.select-wrapper').addClass('col s4');
-    });
-    $.validator.setDefaults({
-        errorClass: 'invalid',
-        validClass: "valid",
-        errorPlacement: function (error, element) {
-            let $input = $(element);
-            $input.closest("form").find("label[for='" + element.attr("id") + "']").attr('data-error', error.text());
-        }
-    });
     var systemAccessFormValidator = $('#system-access-form').validate({
         invalidHandler: function(form, validator) {
             var errors = validator.numberOfInvalids();
@@ -54,5 +43,4 @@ $(document).on('turbolinks:load', function() {
             }
         }
     });
-    $('.required').tooltip({delay: 50});
 });

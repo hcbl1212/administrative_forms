@@ -6,4 +6,5 @@ class Signature < ApplicationRecord
         it_security: 2,
         it_dept_sign_off: 3
     }
+
 end

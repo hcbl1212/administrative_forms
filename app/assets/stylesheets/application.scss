@@ -16,6 +16,12 @@
  *= require_self
  */
 
+.login-card {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .no-margin-bottom {
     margin-bottom: 0 !important;
 }
@@ -26,6 +32,7 @@ html, body {
     padding: 0;
     border: 0;
 
+    body { height: 100vh;}
     label {
       display: block;
     }
@@ -45,8 +52,8 @@ html, body {
 
     .container {
         width: 100%;
-        margin-right: 33px;
-        margin-left: 33px;
+        // margin-right: 33px;
+        // margin-left: 33px;
         max-width: 1445px;
     }
 }
@@ -85,4 +92,14 @@ div.software.row {
     position: absolute;
     opacity: 0;
     pointer-events: none;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }

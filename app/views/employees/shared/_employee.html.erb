@@ -15,8 +15,8 @@
 
 <div class="row">
     <div class="input-field col s5">
-        <%= form.label :first_name, "First name #{required_field}".html_safe %>
         <%= form.text_field :first_name, id: :employee_first_name %>
+        <%= form.label :first_name, "First name #{required_field}".html_safe %>
     </div>
 
     <div class="input-field col s2">
@@ -37,7 +37,7 @@
     </div>
 
     <div class="input-field col s6">
-        <%= form.label :employee_email %>
-        <%= form.text_field :employee_email, id: :employee_employee_email %>
+        <%= form.label :email, "Employee email" %>
+        <%= form.text_field :email, id: :employee_employee_email %>
     </div>
 </div>

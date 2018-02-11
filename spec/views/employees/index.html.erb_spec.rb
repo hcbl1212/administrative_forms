@@ -9,7 +9,9 @@ RSpec.describe "employees/index", type: :view do
         :last_name => "Last Name",
         :middle_initial => "Middle Initial",
         :job_title => "Job Title",
-        :employee_email => "Employee Email"
+        :email => "test@email.com",
+        :password => "testtest1212"
+
       ),
       Employee.create!(
         :employee => false,
@@ -17,7 +19,8 @@ RSpec.describe "employees/index", type: :view do
         :last_name => "Last Name",
         :middle_initial => "Middle Initial",
         :job_title => "Job Title",
-        :employee_email => "Employee Email"
+        :email => "12test@email.com",
+        :password => "testtest1212"
       )
     ])
   end
@@ -28,7 +31,7 @@ RSpec.describe "employees/index", type: :view do
     assert_select "tr>td", :text => "First Name".to_s, :count => 2
     assert_select "tr>td", :text => "Last Name".to_s, :count => 2
     assert_select "tr>td", :text => "Middle Initial".to_s, :count => 2
-    assert_select "tr>td", :text => "Job Title".to_s, :count => 2
-    assert_select "tr>td", :text => "Employee Email".to_s, :count => 2
+    assert_select "tr>td", :text => "test@email.com".to_s, :count => 1
+    assert_select "tr>td", :text => "12test@email.com".to_s, :count => 1
   end
 end

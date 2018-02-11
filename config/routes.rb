@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :employees
-  resources :employees do
-      resources :system_access_requests
-  end
-  root to: 'employees#new'
+    root to: 'employees#new'
+    devise_for :employees, :controllers => { :registrations => "employees" }
+    resources :employees
+    resources :employees do
+        get 'pending_system_access_requests', to: 'system_access_requests#pending'
+        get 'not_pending_system_access_requests', to: 'system_access_requests#not_pending'
+    end
 end
