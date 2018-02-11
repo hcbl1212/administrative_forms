@@ -1,5 +1,6 @@
 <div class="card">
     <div class="card-content">
+        <h5 style="float:left"><%= caption %> Requests</h5>
         <table id="sar-table" class="highlight responsive-table">
             <thead>
                 <tr>
@@ -7,15 +8,17 @@
                     <th>Job Title</th>
                     <th>Reason For Request</th>
                     <th>Effective Date</th>
+                    <th>Current Status</th>
                 </tr>
             </thead>
             <tbody>
                 <% sars.each do | sar | %>
                     <tr>
-                        <td><%= sar['full_name'] %></td>
+                        <td><%= link_to(sar['full_name'], employee_path(sar['employee_id'])) %></td>
                         <td><%= sar['job_title'] %></td>
-                        <td><%= sar['reason'] %></td>
+                        <td> This is a <span style='text-decoration:underline;'><%= sar['reason']%></span> user.</td>
                         <td><%= sar['effective_date'] %></td>
+                        <td><%= SystemAccessRequest.states.key(sar['state']).capitalize %></td>
                     </tr>
                 <% end %>
             </tbody>

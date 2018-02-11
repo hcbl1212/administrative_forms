@@ -19,24 +19,24 @@ class SystemAccessRequest < ApplicationRecord
     class << self
         def create_new_system_access!(attributes, employee)
             system_access_request = SystemAccessRequest.new
-            system_access_request.pending!
-            system_access_request.reason = attributes[:reason]
-            system_access_request.effective_date = system_access_request.format_date(attributes, "effective_date".freeze)
-            system_access_request.privileged_access = attributes[:privileged_access]
-            system_access_request.business_justification = attributes[:business_justification]
-            system_access_request.special_instructions = attributes[:special_instructions]
-            system_access_request.other_access = attributes[:other_access]
-            system_access_request.sales_rep_email = attributes[:sales_rep_email]
+            system_access_request.effective_date = SystemAccessRequest.format_date(attributes, "effective_date".freeze)
+            system_access_request.reason = attributes['reason']
+            system_access_request.privileged_access = attributes['privileged_access']
+            system_access_request.business_justification = attributes['business_justification']
+            system_access_request.special_instructions = attributes['special_instructions']
+            system_access_request.other_access = attributes['other_access']
+            system_access_request.sales_rep_email = attributes['sales_rep_email']
             employee.system_access_requests << system_access_request
             employee.save!(validate: false)
             system_access_request.save!
+            system_access_request.pending!
             system_access_request
         end
 
         def select_all_state_and_submitter_id(state, submitter_id)
             state_and_submitter_query = <<-SQL
-                SELECT CONCAT(e.first_name, ' ', e.last_name) 'full_name', e.job_title,
-                       sar.effective_date, sar.reason
+                SELECT e.id 'employee_id', CONCAT(e.first_name, ' ', e.last_name) 'full_name', e.job_title,
+                       sar.effective_date, sar.reason, sar.state
                 FROM employees e
                 INNER JOIN system_access_requests sar ON sar.employee_id = e.id
                 INNER JOIN signatures sig ON sig.system_access_request_id = sar.id

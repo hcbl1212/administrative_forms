@@ -8,12 +8,12 @@ class Employee < ApplicationRecord
     class << self
         def create_new_employee!(attributes)
             employee = Employee.new
-            employee.employee = attributes[:employee]
-            employee.email = attributes[:email]
-            employee.first_name = attributes[:first_name]
-            employee.middle_initial = attributes[:middle_initial]
-            employee.last_name = attributes[:last_name]
-            employee.job_title = attributes[:job_title]
+            employee.employee = attributes['employee']
+            employee.email = attributes['email']
+            employee.first_name = attributes['first_name']
+            employee.middle_initial = attributes['middle_initial']
+            employee.last_name = attributes['last_name']
+            employee.job_title = attributes['job_title']
             employee.save!(validate: false)
             employee
         end
