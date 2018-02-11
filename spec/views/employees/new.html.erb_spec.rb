@@ -16,7 +16,7 @@ RSpec.describe "employees/new", type: :view do
       assert_select "input[name=?]", "employee[last_name]"
       assert_select "input[name=?]", "employee[middle_initial]"
       assert_select "input[name=?]", "employee[job_title]"
-      assert_select "input[name=?]", "employee[employee_email]"
+      assert_select "input[name=?]", "employee[email]"
       assert_select "select[name=?]", "employee[system_access_requests_attributes][0][effective_date(1i)]"
       assert_select "select[name=?]", "employee[system_access_requests_attributes][0][effective_date(2i)]"
       assert_select "select[name=?]", "employee[system_access_requests_attributes][0][effective_date(3i)]"

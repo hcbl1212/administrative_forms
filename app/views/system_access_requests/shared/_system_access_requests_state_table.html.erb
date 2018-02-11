@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-content">
+        <table id="sar-table" class="highlight responsive-table">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Job Title</th>
+                    <th>Reason For Request</th>
+                    <th>Effective Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% sars.each do | sar | %>
+                    <tr>
+                        <td><%= sar['full_name'] %></td>
+                        <td><%= sar['job_title'] %></td>
+                        <td><%= sar['reason'] %></td>
+                        <td><%= sar['effective_date'] %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

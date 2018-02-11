@@ -23,13 +23,17 @@
 
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+        <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     </head>
 
     <body>
         <%= render 'layouts/navigation/nav' %>
-        <div class="container">
-            <%= yield %>
-        </div>
+        <main>
+            <div class="container">
+                <%= yield %>
+            </div>
+        </main>
         <%= render 'layouts/footer/footer' %>
     </body>
 </html>

@@ -17,7 +17,6 @@ class EmployeesController < ApplicationController
     def new
         @employee = Employee.new
         @system_access_request = @employee.system_access_requests.build
-        3.times { @system_access_request.signatures.build }
     end
 
     # GET /employees/1/edit
@@ -55,6 +54,13 @@ class EmployeesController < ApplicationController
                         })
                     end
                 end
+                Signature.create!(
+                    signature_type: 'supervisor_manager',
+                    system_access_request_id: system_access_request.id,
+                    signature: current_employee.full_name,
+                    submitter_id: current_employee.id,
+                    date: Date.today
+                )
             end
         end
 

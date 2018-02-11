@@ -20,7 +20,6 @@
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    min-height: 445px;
 }
 
 .no-margin-bottom {
@@ -33,6 +32,7 @@ html, body {
     padding: 0;
     border: 0;
 
+    body { height: 100vh;}
     label {
       display: block;
     }
@@ -92,4 +92,14 @@ div.software.row {
     position: absolute;
     opacity: 0;
     pointer-events: none;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }

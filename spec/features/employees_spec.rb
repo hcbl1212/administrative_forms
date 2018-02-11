@@ -49,18 +49,25 @@ RSpec.feature "Employees", type: :feature do
         'Sales Rep Portal (Email required): SAS', 'VPN SAS'].each do | system_access_field |
             FactoryBot.create(:system_access_field, name: system_access_field)
         end
-
+        FactoryBot.create(:employee, first_name: "Bruce", last_name: "Wayne", email: "batman@wayneenterprises.com",
+                          job_title: "philanthropist crime fighter", password: 'batman1212'
+                         )
+        visit employee_session_path
+        fill_in "Email", with: "batman@wayneenterprises.com"
+        fill_in "Password", with: "batman1212"
+        click_button 'Log In'
+        sleep(2)
     end
 
     scenario "Create a new Employee and System Access Request", js: true do
         visit "/employees/new"
-        assert_equal 0, Employee.count
-        first('label', text: "Employee", visible: false).trigger('click')
+        expect(Employee.count).to equal(1)
+        first('label', text: "Employee").trigger('click')
         fill_in "First name", with: "New"
         fill_in "Middle initial", with: "Sales"
         fill_in "Last name", with: "Representative"
         fill_in "Job title", with: "Saler of stuff"
-        fill_in "Employee email", with: "sales@representative.com"
+        fill_in "employee[email]", with: "sales@representative.com"
         select("2014", from: "employee[system_access_requests_attributes][0][effective_date(1i)]", visible: false)
         select("January", from: "employee[system_access_requests_attributes][0][effective_date(2i)]", visible: false)
         select("28", from: "employee[system_access_requests_attributes][0][effective_date(3i)]", visible: false)
@@ -95,26 +102,26 @@ RSpec.feature "Employees", type: :feature do
         fill_in "Special instructions", with: "I like to have special instructions"
         click_button('Request Access')
         sleep(3)
-        assert_equal 1, Employee.all.count
+        expect(Employee.count).to equal(2)
         employee = Employee.last
-        assert_equal true, employee.employee
-        assert_equal "New", employee.first_name
-        assert_equal "Sales", employee.middle_initial
-        assert_equal "Representative", employee.last_name
-        assert_equal "Saler of stuff", employee.job_title
-        assert_equal "sales@representative.com", employee.employee_email
+        expect(employee.employee).to equal(true)
+        expect(employee.first_name).to eq("New")
+        expect(employee.middle_initial).to eq("Sales")
+        expect(employee.last_name).to eq("Representative")
+        expect(employee.job_title).to eq("Saler of stuff")
+        expect(employee.email).to eq("sales@representative.com")
         system_access_request = employee.system_access_requests.last
-        assert_equal "2014-01-28", system_access_request.effective_date.strftime("%Y-%m-%d")
-        assert_equal "new", system_access_request.reason
-        assert_equal "I like extra access", system_access_request.privileged_access
-        assert_equal "I said please", system_access_request.business_justification
-        assert_equal "I like other access", system_access_request.other_access
-        assert_equal "I like to have special instructions", system_access_request.special_instructions
+        expect(system_access_request.effective_date.strftime("%Y-%m-%d")).to eq("2014-01-28")
+        expect(system_access_request.reason).to eq("new")
+        expect(system_access_request.privileged_access).to eq("I like extra access")
+        expect(system_access_request.business_justification).to eq("I said please")
+        expect(system_access_request.other_access).to eq("I like other access")
+        expect(system_access_request.special_instructions).to eq("I like to have special instructions")
         accepted_departments = ["Accessioning Dep","Information Technology Dep","Vendor Dep" ]
-        assert_equal 3, system_access_request.departments.count
+        expect(system_access_request.departments.count).to equal(3)
         ord_dep = system_access_request.departments.order("name")
         ord_dep.each_with_index do | dep, index |
-            assert_equal accepted_departments[index], dep.name
+            expect(accepted_departments[index]).to eq(dep.name)
         end
         accepted_softwares_and_role = {"Billing (Telcor) Software": "Billing Manager Role",
                                        "LIS (LabHealth) Software": "Lab General Role",
@@ -122,19 +129,19 @@ RSpec.feature "Employees", type: :feature do
         chosen_softwares = system_access_request.softwares
         # Cool thing about this is we will get an error if all of the softwares we expect to belong to this access request are not there
         chosen_softwares.each do | chosen_soft |
-            assert_equal accepted_softwares_and_role[chosen_soft.name.to_sym], system_access_request.software_role(chosen_soft.id).name
+            expect(accepted_softwares_and_role[chosen_soft.name.to_sym]).to eq(system_access_request.software_role(chosen_soft.id).name)
         end
 
         network_group = ['IT Group', 'Manager Group']
         net_group = system_access_request.groups.where(group_type: "network_security_share").order("name")
         net_group.each_with_index do | net, index |
-            assert_equal network_group[index], net.name
+            expect(network_group[index]).to eq(net.name)
         end
         email_group = ['Customer Support Group', 'Supplies Group']
         em_group = system_access_request.groups.where(group_type: "email").order("name")
 
         em_group.each_with_index do | email, index |
-            assert_equal email_group[index], email.name
+            expect(email_group[index]).to eq(email.name)
         end
     end
 end

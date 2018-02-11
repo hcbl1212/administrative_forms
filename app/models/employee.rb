@@ -18,4 +18,9 @@ class Employee < ApplicationRecord
             employee
         end
     end
+
+
+    def full_name
+        [first_name, middle_initial, last_name].compact.reject(&:blank?).join(' ')
+    end
 end

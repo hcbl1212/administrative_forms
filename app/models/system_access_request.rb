@@ -1,6 +1,6 @@
 class SystemAccessRequest < ApplicationRecord
     include ParamMassageUtilities
-    belongs_to :employee
+    belongs_to :employee, optional: true
     has_many :system_access_request_departments
     has_many :departments, through: :system_access_request_departments
     has_many :system_access_request_groups
@@ -28,9 +28,24 @@ class SystemAccessRequest < ApplicationRecord
             system_access_request.other_access = attributes[:other_access]
             system_access_request.sales_rep_email = attributes[:sales_rep_email]
             employee.system_access_requests << system_access_request
-            employee.save!
+            employee.save!(validate: false)
             system_access_request.save!
             system_access_request
+        end
+
+        def select_all_state_and_submitter_id(state, submitter_id)
+            state_and_submitter_query = <<-SQL
+                SELECT CONCAT(e.first_name, ' ', e.last_name) 'full_name', e.job_title,
+                       sar.effective_date, sar.reason
+                FROM employees e
+                INNER JOIN system_access_requests sar ON sar.employee_id = e.id
+                INNER JOIN signatures sig ON sig.system_access_request_id = sar.id
+                WHERE
+                    sar.state IN (#{[*state].join(',')})
+                AND
+                    sig.submitter_id = #{submitter_id}
+            SQL
+            ActiveRecord::Base.connection.select_all(state_and_submitter_query)
         end
     end
 

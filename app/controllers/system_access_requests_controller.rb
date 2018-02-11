@@ -1,23 +1,15 @@
 class SystemAccessRequestsController < ApplicationController
-    before_action :set_employee, only: [:pending, :not_pending]
 
     def pending
-pending_query <<-SQL
-    Select 
-SQL
-
-
-        Employee
-        raise @employee.inspect 
+        @pending_sars = SystemAccessRequest.select_all_state_and_submitter_id(SystemAccessRequest.states[:pending], current_employee.id)
     end
 
     def not_pending
-        raise params.inspect 
+        @not_pending_sars = SystemAccessRequest.select_all_state_and_submitter_id(
+            [SystemAccessRequest.states[:rejected], SystemAccessRequest.states[:approved]],
+            current_employee.id
+        )
     end
 
-    private
-        def set_employee
-            @employee ||= Employee.includes(:system_access_requests).where(id: params[:employee_id])
-        end
 
 end
