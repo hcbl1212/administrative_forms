@@ -67,6 +67,14 @@ def employee_hash
      "last_name"=>"Wayne", "job_title"=>"Cowboy", "email"=>"cowboy@westerns.com" }
 end
 
+def employee_hash_with_password
+   { "employee"=>"true", "first_name"=>"John", "middle_initial"=>"Flipping",
+     "last_name"=>"Wayne", "job_title"=>"Cowboy", "email"=>"cowboy@westerns.com",
+     "password"=>"CowGirl121213!"
+   }
+end
+
+
 def system_access_requests_hash
     { "effective_date(1i)"=>"2018", "effective_date(2i)"=>"2", "effective_date(3i)"=>"11",
       "reason"=>"new", "privileged_access"=>"24/7 hourly access",
@@ -101,6 +109,20 @@ end
 def create_pending_and_non_pending_system_access_requests(employee)
     system_access_request = SystemAccessRequest.create_new_system_access!(system_access_requests_hash, employee)
     submitter = Employee.create_new_employee!(employee_hash)
+    create_supervisor_signature!(system_access_request, submitter)
+    system_access_request_A = SystemAccessRequest.create_new_system_access!(system_access_requests_hash_1, employee)
+    system_access_request_A.approved!
+    create_supervisor_signature!(system_access_request_A, submitter)
+    system_access_request_R = SystemAccessRequest.create_new_system_access!(system_access_requests_hash_2, employee)
+    system_access_request_R.rejected!
+    create_supervisor_signature!(system_access_request_R, submitter)
+    [[system_access_request, system_access_request_A, system_access_request_R], submitter]
+end
+
+def create_inverse_user_pending_and_non_pending_system_access_requests(employee)
+    submitter = employee
+    employee = Employee.create_new_employee!(employee_hash)
+    system_access_request = SystemAccessRequest.create_new_system_access!(system_access_requests_hash, employee)
     create_supervisor_signature!(system_access_request, submitter)
     system_access_request_A = SystemAccessRequest.create_new_system_access!(system_access_requests_hash_1, employee)
     system_access_request_A.approved!
