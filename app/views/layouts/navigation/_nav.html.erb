@@ -7,7 +7,7 @@
                     <ul id="nav-mobile" class="right grey-text hide-on-med-and-down">
                         <li>
                             <%= render 'layouts/navigation/forms_dropdown' %>
-                            <a class="dropdown-button grey-text"  data-activates="forms-dropdown-menu">
+                            <a class="dropdown-button grey-text" id="admin-forms"  data-activates="forms-dropdown-menu">
                                 <i class="material-icons left">note_add</i>
                                 Administrative Forms
                                 <i class="material-icons right">arrow_drop_down</i>
@@ -15,14 +15,14 @@
                         </li>
                         <li>
                             <%= render 'layouts/navigation/submitted_request_dropdown' %>
-                            <a class="dropdown-button grey-text" data-activates="requests-dropdown-menu">
+                            <a class="dropdown-button grey-text" id="submitted-requests" data-activates="requests-dropdown-menu">
                                 <i class="material-icons left">list</i>
                                 Submitted Requests
                                 <i class="material-icons right">arrow_drop_down</i>
                             </a>
                         </li>
                         <li>
-                            <a class="grey-text" href="collapsible.html">
+                            <a class="grey-text" id="resource" href="collapsible.html">
                                 <i class="material-icons left">library_books</i>
                                 Resources
                             </a>
