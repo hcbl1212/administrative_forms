@@ -23,6 +23,7 @@ gem 'jquery-rails'
 gem 'jquery-validation-rails'
 gem 'materializecss'
 gem 'material_icons'
+gem "administrate"
 gem 'devise'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
