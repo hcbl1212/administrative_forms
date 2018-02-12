@@ -6,4 +6,5 @@ Rails.application.routes.draw do
         get 'pending_system_access_requests', to: 'system_access_requests#pending'
         get 'not_pending_system_access_requests', to: 'system_access_requests#not_pending'
     end
+    resources :resources
 end

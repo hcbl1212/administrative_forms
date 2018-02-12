@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-content">
+        <div class="row">
+        <h4>Resources</h4>
+            <% @resources.each do |resource| %>
+                <div class="col s3">
+                    <%= link_to "#{resource.name} <i class='material-icons' style='vertical-align:top;'>open_in_new</i>".html_safe,
+                        resource.url, target: "_blank", class: 'btn btn-large waves-effect waves-light teal lighten-2' %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
