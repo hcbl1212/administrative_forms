@@ -4,7 +4,12 @@ $(document).on('turbolinks:load', function() {
     });
 
     $('.required').tooltip({delay: 50});
+    $(".button-collapse").sideNav();
     $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+    });
+    $('.mobile-dropdown-button').dropdown({
         inDuration: 300,
         outDuration: 225,
     });
@@ -13,7 +18,6 @@ $(document).on('turbolinks:load', function() {
         on("click", function(event) {
             toggleDepartmentOtherText($(this).parent());
     });
-    $(".button-collapse").sideNav();
 
 });
 

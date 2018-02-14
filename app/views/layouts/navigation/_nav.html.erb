@@ -4,11 +4,11 @@
             <div class="container">
                 <%= image_tag "mdlabs-logo.png", class: "brand-logo" %>
                 <% if employee_signed_in? %>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right grey-text hide-on-med-and-down">
                         <li>
                             <%= render 'layouts/navigation/forms_dropdown' %>
-                            <a class="dropdown-button grey-text" id="admin-forms"  data-activates="forms-dropdown-menu">
+                            <a class="dropdown-button dropdown-button grey-text" id="admin-forms"  data-activates="forms-dropdown-menu">
                                 <i class="material-icons left">note_add</i>
                                 Administrative Forms
                                 <i class="material-icons right">arrow_drop_down</i>
@@ -36,16 +36,14 @@
                     <ul class="side-nav" id="mobile-demo">
                         <li>
                             <%= render 'layouts/navigation/forms_dropdown' %>
-                            <a class="dropdown-button grey-text" id="admin-forms"  data-activates="forms-dropdown-menu">
-                                <i class="material-icons left">note_add</i>
+                            <a class="mobile-dropdown-button grey-text" id="admin-forms"  data-activates="forms-dropdown-menu">
                                 Administrative Forms
                                 <i class="material-icons right">arrow_drop_down</i>
                             </a>
                         </li>
                         <li>
                             <%= render 'layouts/navigation/submitted_request_dropdown' %>
-                            <a class="dropdown-button grey-text" id="submitted-requests" data-activates="requests-dropdown-menu">
-                                <i class="material-icons left">list</i>
+                            <a class="mobile-dropdown-button grey-text" id="submitted-requests" data-activates="requests-dropdown-menu">
                                 Submitted Requests
                                 <i class="material-icons right">arrow_drop_down</i>
                             </a>
@@ -60,7 +58,7 @@
                             <%= link_to "Sign Out <i class='material-icons left'>lock_open</i>".html_safe,
                                 destroy_employee_session_path, class: "grey-text", method: :delete %>
                         </li>
-                    </ul>          
+                    </ul>
                 <% end %>
             </div>
         </div>
