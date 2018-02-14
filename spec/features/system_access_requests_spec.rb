@@ -11,7 +11,7 @@ RSpec.feature "System Access Requests", type: :feature do
     end
 
     scenario "View pending system access requests", js: true do
-        find('#pending-requests', visible: false).trigger('click')
+        first('#pending-requests', visible: false).trigger('click')
         sleep(2)
         expect(page).to have_content('Pending Requests')
         expect(page).to have_content('John Wayne')
@@ -22,7 +22,7 @@ RSpec.feature "System Access Requests", type: :feature do
     end
 
     scenario "View pending system access requests", js: true do
-        find('#not-pending-requests', visible: false).trigger('click')
+        first('#not-pending-requests', visible: false).trigger('click')
         sleep(2)
         expect(page).to have_content('Approved/Rejected Requests')
         expect(page).to have_content('John Wayne')

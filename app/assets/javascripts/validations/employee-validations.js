@@ -35,6 +35,9 @@ $(document).on('turbolinks:load', function() {
                 required: function(element) {
                     return $("#employee_system_access_requests_attributes_0_privileged_access").val()!="";
                 }
+            },
+            'employee[system_access_requests_attributes][0][departments][11][other_text]': {
+                required: true
             }
         },
         messages: {

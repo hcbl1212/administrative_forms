@@ -14,11 +14,11 @@ RSpec.describe "resources/edit", type: :view do
 
     assert_select "form[action=?][method=?]", resource_path(@resource), "post" do
 
-      assert_select "textarea[name=?]", "resource[name]"
+      assert_select "input[name=?]", "resource[name]"
 
       assert_select "input[name=?]", "resource[url]"
 
-      assert_select "input[name=?]", "resource[resource_type]"
+      assert_select "select[name=?]", "resource[resource_type]"
     end
   end
 end

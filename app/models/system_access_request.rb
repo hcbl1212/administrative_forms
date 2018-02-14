@@ -44,6 +44,7 @@ class SystemAccessRequest < ApplicationRecord
                     sar.state IN (#{[*state].join(',')})
                 AND
                     sig.submitter_id = #{submitter_id}
+                GROUP BY sar.id
             SQL
             ActiveRecord::Base.connection.select_all(state_and_submitter_query)
         end
