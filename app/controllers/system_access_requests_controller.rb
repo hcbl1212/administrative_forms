@@ -1,4 +1,7 @@
 class SystemAccessRequestsController < ApplicationController
+    def index
+        @system_access_requests = SystemAccessRequest.includes(:employee).all
+    end
 
     def pending
         @pending_sars = SystemAccessRequest.select_all_state_and_submitter_id(SystemAccessRequest.states[:pending], current_employee.id)

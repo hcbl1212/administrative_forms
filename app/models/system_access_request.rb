@@ -36,7 +36,7 @@ class SystemAccessRequest < ApplicationRecord
         def select_all_state_and_submitter_id(state, submitter_id)
             state_and_submitter_query = <<-SQL
                 SELECT e.id 'employee_id', CONCAT(e.first_name, ' ', e.last_name) 'full_name', e.job_title,
-                       sar.effective_date, sar.reason, sar.state
+                       sar.effective_date, sar.reason, sar.state, sar.id 'system_access_request_id'
                 FROM employees e
                 INNER JOIN system_access_requests sar ON sar.employee_id = e.id
                 INNER JOIN signatures sig ON sig.system_access_request_id = sar.id

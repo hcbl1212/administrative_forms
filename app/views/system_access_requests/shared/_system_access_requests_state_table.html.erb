@@ -9,6 +9,8 @@
                     <th>Reason For Request</th>
                     <th>Effective Date</th>
                     <th>Current Status</th>
+                    <th>Approve</th>
+                    <th>Reject</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +21,16 @@
                         <td> This is a <span style='text-decoration:underline;'><%= sar['reason']%></span> user.</td>
                         <td><%= sar['effective_date'] %></td>
                         <td><%= SystemAccessRequest.states.key(sar['state']).capitalize %></td>
+                        <td>
+                            <a href="#" id="approve-sar" data-sar-id="<%= sar['system_access_request_id'] %>">
+                                <i class="material-icons" style="font-size:35px;color:green;">add_circle</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" id="reject-sar" data-sar-id="<%= sar['system_access_request_id'] %>">
+                                <i class="material-icons" style="font-size:35px;color:red;">remove_circle</i>
+                            </a>
+                        </td>
                     </tr>
                 <% end %>
             </tbody>
