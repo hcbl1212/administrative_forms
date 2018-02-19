@@ -1,10 +1,14 @@
 $(document).on('turbolinks:load', function() {
+     $('.modal').modal();
     new SystemAccessRequestTable("sar-table", "sarId", "approve-sar", "reject-sar");
 });
 
 class SystemAccessRequestTable {
-    constructor(tableID, dataAttribute, approveID, rejectID) {
+    constructor(
+        tableID, dataAttribute, approveID, rejectID, defaultNoDataMessage = "No system access requests with this status currently exist."
+    ) {
         this.tableID = tableID;
+        this.defaultNoDataMessage = defaultNoDataMessage;
         this._initialize();
         this.sysAccStatUp = new SystemAccessStatusUpdate(dataAttribute, approveID, rejectID)
     }
@@ -14,13 +18,14 @@ class SystemAccessRequestTable {
     }
 
     _initDataTable() {
-        $(`#${this.tableID}`).dataTable({
+        const _this = this;
+        $(`#${_this.tableID}`).dataTable({
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
             "language": {
-                "emptyTable": "No system access requests with this status currently exist. "
+                "emptyTable": _this.defaultNoDataMessage
             }
         });
     }
@@ -36,41 +41,50 @@ class SystemAccessStatusUpdate {
     }
 
     _initialize() {
+        const {rejectID, approveID} = this;
         this.actions = {
-            `${this.rejectId`}: "reject",
-            `${this.approveId`}: "approve"
+            [rejectID]: "rejected",
+            [approveID]: "approved"
         };
-        this.url = '';
+        this.BASE_URL = "/system_access_requests/";
+        this.PRIMARY_METHOD = "post";
+        this.SECONDARY_METHOD = "patch";
         this._initButtonActions();
     }
 
     _initButtonActions() {
         const _this = this;
-        $(`#${_this.approveID}, #${_this.rejectID}`).on('click', function(event){
+        $(`#${_this.approveID}, #${_this.rejectID}`).on("click", function(event){
             event.preventDefault();
-            _this._buttonClickStrategy(event.currentTarget.id, event.currentTarget.dataset[_this.sarDataAttr])
+            const $rowToRemove = $(this).closest("tr");
+            _this._buttonClickStrategy(event.currentTarget.id, event.currentTarget.dataset[_this.sarDataAttr], $rowToRemove)
         });
     }
 
-    _buttonClickStrategy(actionID, sarDbID) {
-        
+    _buttonClickStrategy(actionID, sarDbID, $rowToRemove) {
+        this._updateSARStatus(this.actions[actionID], sarDbID, $rowToRemove)
     }
 
-    _updateSARStatus(url, action, sarID) {
+    _updateSARStatus(action, sarID, $elementToRemove) {
+        const _this = this;
         $.ajax({
-            url: url,
-            method: 'POST',
-            dataType: 'json',
+            url: `${_this.BASE_URL}${sarID}`,
+            method: _this.PRIMARY_METHOD,
+            dataType: "json",
             data: {
-                id: sarID,
-                action: action,
-                _method: 'PATCH'
+                system_access_request: {
+                    id: sarID,
+                    state: action
+                },
+                _method: this.SECONDARY_METHOD
             },
             success(data) {
-               //remove that id from the dom
+               $elementToRemove.fadeOut("slow");
             },
             error(data) {
-               //show error modal
+                console.log(data.statusText);
+                $(".sar-error-container").html(data.statusText);
+                $("#sar-error-modal").modal("open");
             }
         });
     }

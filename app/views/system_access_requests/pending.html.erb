@@ -1,1 +1,17 @@
-<%= render partial: 'system_access_requests/shared/system_access_requests_state_table', locals: { sars: @pending_sars, caption: "Pending" } %>
+<%= render partial: 'system_access_requests/shared/system_access_requests_state_table',
+                    locals: {
+                        sars: @pending_sars,
+                        caption: "Pending",
+                        action: :pending
+                    } %>
+ <!-- Modal Structure -->
+<div id="sar-error-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Unable To Transition System Access Request</h4>
+            <p>The error <span class="sar-error-container red"></span> caused this record to be transitioned.</p>
+            <p>Please contact IT using the email in the footer and we would be happy to assists you.</p>
+    </div>
+    <div class="modal-footer teal lighten-5">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>

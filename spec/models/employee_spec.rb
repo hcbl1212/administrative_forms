@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'test_helper'
 
 RSpec.describe Employee, type: :model do
     it "should return only the first and last name if the middle name is blank" do
@@ -23,5 +24,7 @@ RSpec.describe Employee, type: :model do
         expect(employee.last_name).to eq("Wayne")
         expect(employee.job_title).to eq("Cowboy")
         expect(employee.email).to eq("cowboy@westerns.com")
+        expect(employee.standard?).to equal(true)
     end
+
 end

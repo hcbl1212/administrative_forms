@@ -61,13 +61,15 @@ class EmployeesController < ApplicationController
                         })
                     end
                 end
-                Signature.create!(
+                if Signature.create!(
                     signature_type: 'supervisor_manager',
                     system_access_request_id: system_access_request.id,
                     signature: current_employee.full_name,
                     submitter_id: current_employee.id,
                     date: Date.today
                 )
+                    SystemAccessRequestRegistration.new(system_access_request, @employee).registration
+                end
             end
         end
 
