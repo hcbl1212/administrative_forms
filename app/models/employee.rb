@@ -5,6 +5,15 @@ class Employee < ApplicationRecord
     devise :database_authenticatable, :registerable,
            :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
+    after_create :assign_default_role
+
+    enum role:  {
+        admin: 1,
+        manager: 2,
+        sales_rep: 3,
+        standard: 4
+    }
+
     class << self
         def create_new_employee!(attributes)
             employee = Employee.new
@@ -23,4 +32,12 @@ class Employee < ApplicationRecord
     def full_name
         [first_name, middle_initial, last_name].compact.reject(&:blank?).join(' ')
     end
+
+
+    private
+
+        def assign_default_role
+            self.role = "standard" if self.role.to_s.empty?
+            self.save(validate: false)
+        end
 end

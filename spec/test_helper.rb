@@ -7,10 +7,26 @@ def sign_in_default_employee
     sleep(2)
 end
 
+def sign_in_admin_employee
+    create_admin_employee
+    visit employee_session_path
+    fill_in "Email", with: "batman@wayneenterprises.com"
+    fill_in "Password", with: "batman1212"
+    click_button 'Log In'
+    sleep(2)
+end
+
 def create_default_employee
     FactoryBot.create(:employee, first_name: "Bruce", last_name: "Wayne", email: "batman@wayneenterprises.com",
                           job_title: "philanthropist crime fighter", password: 'batman1212'
     )
+end
+
+def create_admin_employee
+    a = FactoryBot.create(:employee, first_name: "Bruce", last_name: "Wayne", email: "batman@wayneenterprises.com",
+                          job_title: "philanthropist crime fighter", password: 'batman1212'
+    )
+    a.admin!
 end
 
 def create_system_access_request_resources
@@ -57,7 +73,7 @@ def create_system_access_request_resources
     ['Email (@MDlabs.com and / or @Rxight.com) SAS', 'Payroll (Paylocity) SAS', 'HIPAA Training (HealthStream) SAS',
      'Security Training (NAScyberNET) SAS', 'Door Access (IntelliM) SAS', 'Instant Messaging (Slack) SAS',
      'Client Portal SAS', 'Active Directory SAS', 'Ultimate Guide SAS', 'Rxight Portal Admin SAS', 'Secret Server (Thycotic) SAS',
-     'Sales Rep Portal (Email required): SAS', 'VPN SAS'].each do | system_access_field |
+     'Sales Rep Portal (Email required) SAS', 'VPN SAS'].each do | system_access_field |
         FactoryBot.create(:system_access_field, name: system_access_field)
      end
 end

@@ -26,6 +26,7 @@ class EmployeesController < ApplicationController
     # POST /employees
     # POST /employees.json
     def create
+        #raise employee_params.inspect
         Employee.transaction do
             #so we are either going to add it to an existing employee or create a new one
             @employee = Employee.find_by_email(employee_params[:email])
@@ -39,6 +40,12 @@ class EmployeesController < ApplicationController
                         assoc_ids = system_access_requests_params["#{association}_ids"].reject(&:blank?)
                         system_access_request.create_association!(association, association_class, assoc_ids)
                     end
+                end
+                departments = system_access_requests_params[:departments]["11"] rescue nil
+                unless departments.nil?
+                    sard_assoc = SystemAccessRequestDepartment.find_by_department_id(11)
+                    sard_assoc.other_text = departments["other_text"]
+                    sard_assoc.save!
                 end
                 # populate all of the softwares and their roles
                 Software.first.id.upto(Software.last.id).each do | index |
@@ -54,13 +61,15 @@ class EmployeesController < ApplicationController
                         })
                     end
                 end
-                Signature.create!(
+                if Signature.create!(
                     signature_type: 'supervisor_manager',
                     system_access_request_id: system_access_request.id,
                     signature: current_employee.full_name,
                     submitter_id: current_employee.id,
                     date: Date.today
                 )
+                    SystemAccessRequestRegistration.new(system_access_request, @employee).registration
+                end
             end
         end
 
@@ -116,6 +125,7 @@ class EmployeesController < ApplicationController
                                         :effective_date, :reason, :privileged_access, :business_justification,
                                         :special_instructions, :other_access, :sales_rep_email,
                                         {system_access_field_ids: []},
+                                        {departments: [:other_text]},
                                         {department_ids: []},
                                         {group_ids: []},
                                         softwares: [:id, roles: [:role_ids]],

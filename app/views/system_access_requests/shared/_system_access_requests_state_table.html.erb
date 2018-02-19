@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-content">
         <h5 style="float:left"><%= caption %> Requests</h5>
-        <table id="sar-table" class="highlight responsive-table">
+        <table id="sar-table" class="highlight">
             <thead>
                 <tr>
                     <th>Full Name</th>
@@ -9,6 +9,9 @@
                     <th>Reason For Request</th>
                     <th>Effective Date</th>
                     <th>Current Status</th>
+                    <% if current_employee.admin? && action == :pending %>
+                        <%= render partial: 'system_access_requests/shared/system_access_requests_state_table_admin_actions_header' %>
+                    <% end %>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +22,11 @@
                         <td> This is a <span style='text-decoration:underline;'><%= sar['reason']%></span> user.</td>
                         <td><%= sar['effective_date'] %></td>
                         <td><%= SystemAccessRequest.states.key(sar['state']).capitalize %></td>
+                        <% if current_employee.admin? && action == :pending  %>
+                            <%= render partial: 'system_access_requests/shared/system_access_requests_state_table_admin_actions_body',
+                                    locals: { sar: sar }
+                            %>
+                        <% end %>
                     </tr>
                 <% end %>
             </tbody>

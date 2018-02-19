@@ -1,0 +1,32 @@
+<ul id="<%= mobile_id %>" class="<%= mobile_classes %>" data-turbolinks="false">
+     <li>
+        <%= render 'layouts/navigation/forms_dropdown' %>
+        <a class="<%= drop_down_class %> grey-text" id="admin-forms"  data-activates="forms-dropdown-menu">
+            <% unless mobile_id == "mobile-demo" %>
+                <i class="material-icons left">note_add</i>
+            <% end %>
+            Administrative Forms
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
+     </li>
+     <li>
+        <%= render 'layouts/navigation/submitted_request_dropdown' %>
+        <a class="<%= drop_down_class %> grey-text" id="submitted-requests" data-activates="requests-dropdown-menu">
+            <% unless mobile_id == "mobile-demo" %>
+                <i class="material-icons left">list</i>
+            <% end %>
+                Submitted Requests
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
+     </li>
+     <li>
+        <a class="grey-text" id="resource" href="<%= resources_path %>">
+           <i class="material-icons left">library_books</i>
+           Resources
+        </a>
+     </li>
+     <li>
+        <%= link_to "Sign Out <i class='material-icons left'>lock_open</i>".html_safe,
+            destroy_employee_session_path, class: "grey-text", method: :delete %>
+    </li>
+</ul>

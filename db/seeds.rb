@@ -17,7 +17,7 @@
         'Email (@MDlabs.com and / or @Rxight.com)', 'Payroll (Paylocity)', 'HIPAA Training (HealthStream)',
         'Security Training (NAScyberNET)', 'Door Access (IntelliM)', 'Instant Messaging (Slack)',
         'Client Portal', 'Active Directory', 'Ultimate Guide', 'Rxight Portal Admin', 'Secret Server (Thycotic)',
-        'Sales Rep Portal (Email required):', 'VPN'
+        'Sales Rep Portal (Email required)', 'VPN'
     ].each do | system_access_field |
         SystemAccessField.create!({ name: system_access_field})
     end

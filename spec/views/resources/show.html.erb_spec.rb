@@ -5,14 +5,13 @@ RSpec.describe "resources/show", type: :view do
     @resource = assign(:resource, Resource.create!(
       :name => "MyText",
       :url => "Url",
-      :resource_type => 2
+      :resource_type => 1
     ))
   end
 
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/MyText/)
-    expect(rendered).to match(/Url/)
-    expect(rendered).to match(/2/)
+    expect(rendered).to match(/pdf_document/)
   end
 end
