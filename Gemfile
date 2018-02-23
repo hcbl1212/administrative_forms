@@ -45,6 +45,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'factory_bot'
+  gem "letter_opener"
   gem 'rspec-rails'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
