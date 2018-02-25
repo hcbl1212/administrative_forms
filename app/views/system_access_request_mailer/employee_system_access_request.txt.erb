@@ -1,0 +1,51 @@
+W2-Employee:  <%= @employee.employee %>
+First name:  <%= @employee.first_name %>
+Middle initial:  <%= @employee.middle_initial %>
+Last name:  <%= @employee.last_name %>
+Job title:  <%= @employee.job_title %>
+Employee email:  <%= @employee.email %>
+Effective Date:  <%= @sar.effective_date.strftime('%Y-%m-%d') %>
+Reason:  <%= @sar.reason %>
+Departments:
+<% @sar.departments.each do | dep |  %>
+    <%= dep.name %>
+<% end %>
+
+System Access:
+<% @sar.system_access_fields.each do | saf |  %>
+    <%= @saf.name %>
+<% end %>
+
+Softwares:
+<% sar.softwares.each do | soft |  %>
+    Software:
+    <%= @soft.name %>
+    Role:
+    <%= @sar.software_role(soft.id).name %>
+<% end %>
+
+Groups:
+<% sar.groups.each_with_index do | group, index |  %>
+    Group Type:
+    <%= group.group_type %>
+    Group:
+    <%= group.name %>
+<% end %>
+
+Additional Requests:
+    Privileged Access:
+    <%= @sar.privileged_access %>
+    Business Justification:
+    <%= @sar.business_justification %>
+    Other Access:
+    <%= @sar.other_access %>
+    Special Instructions:
+    <%= @sar.special_instructions %>
+
+Signatures:
+<% @sar.manager_signatures.each do | signature |  %>
+    Signature Type:
+    <%= signature.signature_type.titlecase %> <br>
+    Signatures name:
+    <%= signature.submitter_name %>
+<% end %>

@@ -68,11 +68,10 @@ class EmployeesController < ApplicationController
                     submitter_id: current_employee.id,
                     date: Date.today
                 )
-                    SystemAccessRequestRegistration.new(system_access_request, @employee).registration
+                    SystemAccessRequestRegistration.new(system_access_request, @employee).run
                 end
             end
         end
-
 
         respond_to do |format|
             unless @employee.id.nil?

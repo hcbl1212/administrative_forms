@@ -1,0 +1,111 @@
+<div class='card'>
+    <div class='card-content'>
+        <div class="row">
+            <div class="col s12">
+                <strong>W2-Employee</strong>
+                <%= @employee.employee %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s3">
+              <strong>First name:</strong>
+              <%= @employee.first_name %>
+            </div>
+            <div class="col s3">
+              <strong>Middle initial:</strong>
+              <%= @employee.middle_initial %>
+            </div>
+            <div class="col s3">
+              <strong>Last name:</strong>
+              <%= @employee.last_name %>
+            </div>
+            <div class="col s3">
+                <strong>Job title:</strong>
+                <%= @employee.job_title %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s3">
+                <strong>Employee email:</strong>
+                <%= @employee.email %>
+            </div>
+            <div class="col s3">
+                <strong>Effective Date:</strong>
+                <%= @sar.effective_date.strftime('%Y-%m-%d') %>
+            </div>
+            <div class="col s3">
+                <strong>Reason:</strong>
+                <%= @sar.reason %>
+            </div>
+        </div>
+        <div class="row">
+            <strong class="left">Departments:</strong><br>
+            <% @sar.departments.each do | dep |  %>
+                <div class="col s3">
+                    <%= dep.name %>
+                </div>
+            <% end %>
+        </div>
+        <div class="row">
+            <strong class="left">System Access:</strong><br>
+            <% @sar.system_access_fields.each do | saf |  %>
+                <div class="col s3">
+                    <%= saf.name %>
+                </div>
+            <% end %>
+        </div>
+        <div class="row">
+            <strong class="left">Softwares:</strong><br>
+            <% @sar.softwares.each do | soft |  %>
+                <div class="col s3">
+                    Software:
+                    <%= soft.name %><br>
+                    Role:
+                    <%= @sar.software_role(soft.id).name %>
+                </div>
+            <% end %>
+        </div>
+        <div class="row">
+            <strong class="left">Groups:</strong><br>
+            <% @sar.groups.each_with_index do | group, index |  %>
+                <div class="col s3">
+                    Group Type:
+                    <%= group.group_type %> <br>
+                    Group:
+                    <%= group.name %>
+                </div>
+            <% end %>
+        </div>
+        <div class="row">
+            <strong class="left">Additional Requests:</strong><br>
+            <div class="col s3">
+                <strong>Privileged Access:</strong>
+                <%= @sar.privileged_access %>
+            </div>
+            <div class="col s3">
+                <strong>Business Justification:</strong>
+                <%= @sar.business_justification %>
+            </div>
+            <div class="col s3">
+                <strong>Other Access:</strong>
+                <%= @sar.other_access %>
+            </div>
+            <div class="col s3">
+                <strong>Special Instructions:</strong>
+                <%= @sar.special_instructions %>
+            </div>
+        </div>
+        <div class="row">
+            <strong class="left">Signatures:</strong><br>
+            <% @sar.manager_signatures.each do | signature |  %>
+                <div class="col s3">
+                    Signature Type:
+                    <%= signature.signature_type.titlecase %> <br>
+                    Signatures name:
+                    <%= signature.submitter_name %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
