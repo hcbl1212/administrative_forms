@@ -49,3 +49,9 @@ Signatures:
     Signatures name:
     <%= signature.submitter_name %>
 <% end %>
+
+Actions That Can Be Performed:
+<% SystemAccessRequest.allowed_external_actions.each do | allowed_action |  %>
+    <% full_url = "#{@url}/#{@sar.construct_external_action_url(allowed_action)}" %>
+    <a href="<%= full_url %>" > <%= allowed_action.titlecase %> </a>
+<% end %>

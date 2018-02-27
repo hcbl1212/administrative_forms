@@ -7,12 +7,6 @@ class Signature < ApplicationRecord
         it_dept_sign_off: 3
     }
 
-    class << self
-        def managers_signatures
-            self.where(signature_type: "supervisor_manager")
-        end
-    end
-
     def submitter
         Employee.find(self.submitter_id)
     end

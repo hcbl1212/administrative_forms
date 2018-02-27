@@ -107,5 +107,14 @@
                 </div>
             <% end %>
         </div>
+        <div class="row">
+            <strong class="left">Actions That Can Be Performed:</strong>
+            <% SystemAccessRequest.allowed_external_actions.each do | allowed_action |  %>
+                <div class="col s3">
+                    <% full_url = "#{@url}/#{@sar.construct_external_action_url(allowed_action)}" %>
+                    <a href="<%= full_url %>" > <%= allowed_action.titlecase %> </a>
+                </div>
+            <% end %>
+        </div>
     </div>
 </div>
