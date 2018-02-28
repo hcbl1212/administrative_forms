@@ -8,14 +8,17 @@ require 'test_helper'
 RSpec.describe SystemAccessRequestsController, type: :controller do
 
     describe 'GET #external_action' do
-system_access_request_exter=
-nal_action?sar_id=3D15&amp;sar_action=3Dapproved&amp;authorization_code=3D=
-67e300a7-efe3-43fc-af50-51c176f37665
+
         it 'returns sar not found' do
-            get :external_action, sar_id: 123456, 
+            get :external_action, params: { sar_id: 123456, sar_action: 'approved', authorization_code: 'kjkk' }
+            body = JSON.parse(response.body).symbolize_keys
+            expect(body[:failure]).to eq("System Access Request doesn't exist.")
         end
 
         it 'returns auth code not found' do
+            get :external_action, params: { sar_id: 123456, sar_action: 'not_approved', authorization_code: 'kjkk' }
+            body = JSON.parse(response.body).symbolize_keys
+            expect(body[:failure]).to eq("System Access Request doesn't exist.")
 
         end
 
@@ -33,5 +36,6 @@ nal_action?sar_id=3D15&amp;sar_action=3Dapproved&amp;authorization_code=3D=
 
         it 'returns sar is rejected' do
 
-        end    end
+        end
+    end
 end

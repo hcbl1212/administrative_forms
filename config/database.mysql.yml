@@ -1,12 +1,12 @@
 default: &default
-  adapter: postgresql
+  adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  username: md_user
-  password: Harper86
+  username: rxightuser
+  password: password
   host: 127.0.0.1
-  port: 5432
+  port: 3306
 development:
   <<: *default
   database: administrative_forms_dev
