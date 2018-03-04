@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
     root to: 'employees#new'
     devise_for :employees, :controllers => { :registrations => "employees" }
+    get 'system_access_request_external_action', to: 'system_access_requests#external_action'
     resources :system_access_requests
     resources :employees, only: [:index]
     resources :employees do

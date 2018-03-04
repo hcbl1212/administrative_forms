@@ -2,10 +2,10 @@ class CreateEmployees < ActiveRecord::Migration[5.1]
   def change
     create_table :employees do |t|
       t.boolean :employee
-      t.string :first_name
-      t.string :last_name
-      t.string :middle_initial
-      t.string :job_title
+      t.text :first_name
+      t.text :last_name
+      t.text :middle_initial
+      t.text :job_title
 
       t.timestamps
     end

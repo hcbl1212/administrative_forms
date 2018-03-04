@@ -7,4 +7,11 @@ class Signature < ApplicationRecord
         it_dept_sign_off: 3
     }
 
+    def submitter
+        Employee.find(self.submitter_id)
+    end
+
+    def submitter_name
+        self.submitter.full_name
+    end
 end
