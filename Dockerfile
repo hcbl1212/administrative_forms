@@ -10,7 +10,7 @@ RUN apt-get update && apt-get -y install libpq-dev
 RUN apt-get update && apt-get -y install nodejs
 RUN apt-get update && apt-get -y install libqtwebkit-dev libqtwebkit4
 
-ENV INSTALL_PATH /administrative_forms/
+ENV INSTALL_PATH /administrative_forms
 RUN mkdir $INSTALL_PATH
 
 # This sets the context of where commands will be ran in and is documented
@@ -22,4 +22,5 @@ COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 COPY . $INSTALL_PATH
-RUN cp config/database.postgres.docker.yml /administrative_forms/config/database.yml
+
+RUN cp ./config/database.postgres.docker.yml config/database.yml
